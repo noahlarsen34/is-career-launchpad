@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Paths | IS Career Launchpad</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/careers.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="nav-bar" aria-label="Main navigation">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">IS</span>
+                <span>
+                    <span class="brand-school">BYU Marriott School of Business</span>
+                    <span class="brand-title">IS Career Launchpad</span>
+                </span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="careers.html">Career Paths</a>
+                <a href="interviews.html">Interview Prep</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero compact-hero" aria-labelledby="careers-title">
+            <p class="eyebrow">Career explorer</p>
+            <h1 id="careers-title">Find the IS path that fits how you like to solve problems.</h1>
+            <p>
+                Scan common career options, compare key skills, and use the notes to decide what
+                to research or practice next.
+            </p>
+        </section>
+
+        <section class="toolbar" aria-label="Career filters">
+            <label for="careerSearch">Search roles</label>
+            <input id="careerSearch" type="search" placeholder="Try cybersecurity, SQL, clients...">
+        </section>
+
+        <section class="career-grid" id="careerGrid" aria-live="polite"></section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Use these paths as starting points, then validate them with professors, alumni, and internships.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/careers.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

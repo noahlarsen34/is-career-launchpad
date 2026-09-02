@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep | IS Career Launchpad</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/interviews.css">
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="nav-bar" aria-label="Main navigation">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">IS</span>
+                <span>
+                    <span class="brand-school">BYU Marriott School of Business</span>
+                    <span class="brand-title">IS Career Launchpad</span>
+                </span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="careers.html">Career Paths</a>
+                <a href="interviews.html">Interview Prep</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero compact-hero" aria-labelledby="interviews-title">
+            <p class="eyebrow">Interview practice</p>
+            <h1 id="interviews-title">Turn class projects and campus work into clear interview stories.</h1>
+            <p>
+                Practice behavioral and technical prompts, then use the checklist to tighten your
+                answer before the next recruiting event.
+            </p>
+        </section>
+
+        <section class="interview-layout">
+            <div>
+                <div class="toolbar" aria-label="Question filters">
+                    <label for="questionType">Question type</label>
+                    <select id="questionType">
+                        <option value="all">All questions</option>
+                        <option value="behavioral">Behavioral</option>
+                        <option value="technical">Technical</option>
+                        <option value="role">Role-specific</option>
+                    </select>
+                </div>
+
+                <section class="question-list" id="questionList" aria-live="polite"></section>
+            </div>
+
+            <aside class="prep-panel" aria-labelledby="prep-title">
+                <h2 id="prep-title">Answer checklist</h2>
+                <div class="quiz-list" id="prepChecklist"></div>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Strong answers are specific, concise, and connected to the role you want.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/interviews.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
