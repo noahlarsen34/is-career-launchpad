@@ -1,1 +1,0 @@
-console.log("IS Career Launchpad loaded successfully.");
