@@ -3,7 +3,12 @@
     const roleFilter = document.querySelector("#careerRole");
     const typeFilter = document.querySelector("#questionType");
     const enterMockButton = document.querySelector("#enterMockInterview");
+    const roleFocus = document.querySelector("#roleFocus");
+    const studyProgress = document.querySelector("#studyProgress");
+    const studyProgressBar = document.querySelector("#studyProgressBar");
     const roles = window.launchpadData?.interviewRoles || [];
+    const careers = window.launchpadData?.careers || [];
+    const reviewedQuestions = new Set();
 
     if (!list || !roleFilter || !typeFilter || !window.interviewScoring) {
         return;
@@ -15,37 +20,24 @@
         ).join("");
     }
 
-    function feedbackMarkup(result) {
-        return `
-            <div class="feedback-heading">
-                <h3>Practice score</h3>
-                <span class="score-badge">${result.score}/100</span>
-            </div>
-            <p><strong>What worked:</strong> ${result.strengths.join(" ")}</p>
-            <p><strong>Try next:</strong> ${result.improvements.join(" ")}</p>
-            <details>
-                <summary>Compare with a strong response</summary>
-                <p>${result.strongAnswer}</p>
-            </details>
-        `;
+    function renderRoleFocus() {
+        const selectedRole = roles.find((role) => role.id === roleFilter.value);
+        const selectedCareer = careers.find((career) => career.title === selectedRole?.title);
+        const skills = selectedCareer?.skills || [];
+
+        roleFocus.textContent = skills.length
+            ? `Focus on ${skills.slice(0, 3).join(", ")}.`
+            : "Focus on role-specific decisions and measurable outcomes.";
     }
 
-    function scoreResponse(event) {
-        const button = event.target.closest("[data-score-question]");
+    function renderProgress(total) {
+        const reviewed = [...reviewedQuestions].filter((id) =>
+            list.querySelector(`[data-question-id="${id}"]`)
+        ).length;
+        const percent = total ? Math.round((reviewed / total) * 100) : 0;
 
-        if (!button) {
-            return;
-        }
-
-        const questionId = button.dataset.scoreQuestion;
-        const question = window.launchpadData.roleInterviewQuestions.find((item) => item.id === questionId);
-        const card = button.closest(".question-card");
-        const response = card.querySelector("textarea").value;
-        const feedback = card.querySelector(".answer-feedback");
-
-        feedback.innerHTML = feedbackMarkup(window.interviewScoring.scoreAnswer(question, response));
-        feedback.hidden = false;
-        feedback.focus();
+        studyProgress.textContent = `${reviewed} of ${total} reviewed`;
+        studyProgressBar.style.width = `${percent}%`;
     }
 
     function renderQuestions() {
@@ -54,30 +46,77 @@
             typeFilter.value
         );
 
-        list.innerHTML = filteredQuestions.map((item) => `
-            <article class="question-card">
-                <span class="question-type">${item.type}</span>
-                <h2>${item.question}</h2>
-                <p>${item.tip}</p>
-                <label class="answer-label" for="answer-${item.id}">Your response</label>
-                <textarea id="answer-${item.id}" rows="6" placeholder="Type your interview answer here..."></textarea>
-                <button class="button button-primary score-button" type="button" data-score-question="${item.id}">
-                    Get practice feedback
-                </button>
-                <div class="answer-feedback" tabindex="-1" aria-live="polite" hidden></div>
-            </article>
-        `).join("");
+        list.innerHTML = `
+            <div class="study-section-heading">
+                <div>
+                    <p class="eyebrow">Question playbook</p>
+                    <h2>Know what a strong answer needs.</h2>
+                </div>
+                <span>${filteredQuestions.length} study prompts</span>
+            </div>
+            ${filteredQuestions.map((item, index) => `
+                <article class="question-card study-card" data-question-id="${item.id}">
+                    <div class="study-card-heading">
+                        <div>
+                            <span class="question-type">${item.type}</span>
+                            <span class="question-number">Prompt ${index + 1}</span>
+                        </div>
+                        <label class="review-toggle">
+                            <input type="checkbox" data-reviewed="${item.id}" ${reviewedQuestions.has(item.id) ? "checked" : ""}>
+                            Reviewed
+                        </label>
+                    </div>
+                    <h2>${item.question}</h2>
+                    <p class="coach-tip"><strong>How to approach it:</strong> ${item.tip}</p>
+                    <div class="concept-block">
+                        <h3>Concepts to include</h3>
+                        <div class="concept-list">
+                            ${item.concepts.map((concept) => `<span>${concept.label}</span>`).join("")}
+                        </div>
+                    </div>
+                    <details class="model-answer">
+                        <summary>Reveal a strong example answer</summary>
+                        <p>${item.strongAnswer}</p>
+                    </details>
+                </article>
+            `).join("")}
+        `;
+
+        renderProgress(filteredQuestions.length);
+    }
+
+    function updateReviewed(event) {
+        const checkbox = event.target.closest("[data-reviewed]");
+
+        if (!checkbox) {
+            return;
+        }
+
+        if (checkbox.checked) {
+            reviewedQuestions.add(checkbox.dataset.reviewed);
+        } else {
+            reviewedQuestions.delete(checkbox.dataset.reviewed);
+        }
+
+        renderProgress(list.querySelectorAll("[data-question-id]").length);
+    }
+
+    function changeRole() {
+        reviewedQuestions.clear();
+        renderRoleFocus();
+        renderQuestions();
     }
 
     function openMockInterview() {
         window.location.href = `mock-interview.html?role=${encodeURIComponent(roleFilter.value)}`;
     }
 
-    roleFilter.addEventListener("change", renderQuestions);
+    roleFilter.addEventListener("change", changeRole);
     typeFilter.addEventListener("change", renderQuestions);
-    list.addEventListener("click", scoreResponse);
+    list.addEventListener("change", updateReviewed);
     enterMockButton?.addEventListener("click", openMockInterview);
 
     renderRoleOptions();
+    renderRoleFocus();
     renderQuestions();
 })();

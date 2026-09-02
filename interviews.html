@@ -31,33 +31,49 @@
     <main>
         <section class="page-hero compact-hero" aria-labelledby="interviews-title">
             <p class="eyebrow">Interview practice</p>
-            <h1 id="interviews-title">Turn class projects and campus work into clear interview stories.</h1>
+            <h1 id="interviews-title">Prepare first. Then practice under pressure.</h1>
             <p>
-                Practice behavioral and technical prompts, then use the checklist to tighten your
-                answer before the next recruiting event.
+                Choose a career, study what strong answers include, and enter the mock interview
+                when you are ready to answer without notes.
             </p>
         </section>
 
-        <section class="mock-interview-card" aria-labelledby="mock-title">
-            <div>
-                <p class="eyebrow">Live practice</p>
-                <h2 id="mock-title">Enter a mock interview tailored to your target role.</h2>
-                <p>
-                    Pick a career field below, then enter a video meeting with a virtual interviewer.
-                    The questions and final feedback will match the role you choose.
-                </p>
+        <section class="study-setup" aria-labelledby="study-title">
+            <div class="study-setup-copy">
+                <p class="eyebrow">Your study guide</p>
+                <h2 id="study-title">Select the role you want to prepare for.</h2>
+                <p>Review two technical topics and behavioral answer patterns before entering the four-question meeting.</p>
             </div>
+            <div class="role-picker">
+                <label for="careerRole">Target career</label>
+                <select id="careerRole"></select>
+            </div>
+            <div class="study-action">
+                <span>2 technical + 2 behavioral</span>
+                <button class="button button-primary" type="button" id="enterMockInterview">
+                    Enter Mock Interview
+                </button>
+            </div>
+        </section>
 
-            <button class="button button-primary" type="button" id="enterMockInterview">
-                Enter Mock Interview
-            </button>
+        <section class="study-overview" aria-label="Study guide overview">
+            <article>
+                <span class="overview-number">01</span>
+                <div><strong>Review the role</strong><p id="roleFocus"></p></div>
+            </article>
+            <article>
+                <span class="overview-number">02</span>
+                <div><strong>Study the prompts</strong><p>Notice the concepts interviewers listen for.</p></div>
+            </article>
+            <article>
+                <span class="overview-number">03</span>
+                <div><strong>Practice aloud</strong><p>Answer once without reading the example.</p></div>
+            </article>
         </section>
 
         <section class="interview-layout">
             <div>
                 <div class="toolbar" aria-label="Question filters">
-                    <label for="careerRole">Career</label>
-                    <select id="careerRole"></select>
                     <label for="questionType">Question type</label>
                     <select id="questionType">
                         <option value="all">All questions</option>
@@ -70,8 +86,14 @@
             </div>
 
             <aside class="prep-panel" aria-labelledby="prep-title">
+                <p class="eyebrow">Before the meeting</p>
                 <h2 id="prep-title">Answer checklist</h2>
+                <p class="readiness-copy">Use this for every response, then mark study prompts as reviewed.</p>
                 <div class="quiz-list" id="prepChecklist"></div>
+                <div class="study-progress" aria-live="polite">
+                    <strong id="studyProgress">0 of 5 reviewed</strong>
+                    <div class="progress-track"><span id="studyProgressBar"></span></div>
+                </div>
             </aside>
         </section>
     </main>
