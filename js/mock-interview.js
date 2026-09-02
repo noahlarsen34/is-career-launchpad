@@ -8,6 +8,7 @@
     const meetingTitle = document.querySelector("#meetingTitle");
     const questionStatus = document.querySelector("#questionStatus");
     const connectionStatus = document.querySelector("#connectionStatus");
+    const mainVideo = document.querySelector("#mainVideo");
     const speakerContent = document.querySelector("#speakerContent");
     const speakerLine = document.querySelector("#speakerLine");
     const feedbackZone = document.querySelector("#feedbackZone");
@@ -112,10 +113,34 @@
         submitAnswer.disabled = !enabled;
     }
 
+    function coachingQuip(result) {
+        const nextIdea = result.missingConcepts[0] || "a concrete outcome";
+        const quips = result.score >= 76
+            ? [
+                `Okay, résumé wizard—that was strong. One final polish: connect it to ${nextIdea}.`,
+                `Professor Parker almost dropped the clipboard. Keep that clarity and add ${nextIdea}.`,
+                `That answer showed up professionally dressed. Make it even sharper with ${nextIdea}.`
+            ]
+            : result.score >= 45
+                ? [
+                    `We are cooking, but the recipe still needs ${nextIdea}. Check the feedback panel.`,
+                    `Solid foundation—now give it some interview seasoning with ${nextIdea}.`,
+                    `Not bad at all. Your next upgrade is ${nextIdea}; the main panel has the details.`
+                ]
+                : [
+                    `That answer arrived before its luggage. Bring ${nextIdea} into the next version.`,
+                    `Professor Parker's eyebrow has entered the chat. Start by adding ${nextIdea}.`,
+                    `Short and mysterious works for movie trailers, less so for interviews. Add ${nextIdea}.`
+                ];
+
+        return quips[Math.floor(Math.random() * quips.length)];
+    }
+
     function renderQuestion() {
         const question = questions[questionIndex];
 
         awaitingNext = false;
+        mainVideo.classList.remove("has-feedback", "has-summary");
         questionStatus.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
         speakerLine.textContent = question.question;
         feedbackZone.hidden = true;
@@ -126,16 +151,19 @@
         setComposerEnabled(true);
         setMood(null);
         postChat("Professor Parker", question.question, false);
+        mainVideo.scrollIntoView({ behavior: "smooth", block: "start" });
         chatInput.focus();
     }
 
     function renderFeedback(result) {
+        mainVideo.classList.add("has-feedback");
         speakerLine.textContent = "Interview feedback";
         feedbackZone.innerHTML = `
             <div class="feedback-heading">
                 <span class="feedback-label">Question ${questionIndex + 1}</span>
                 <strong class="feedback-score">${result.score}/100</strong>
             </div>
+            <p class="feedback-disclaimer">Automated practice feedback—not AI analysis or a hiring prediction.</p>
             <p><strong>What worked</strong><br>${result.strengths.join(" ")}</p>
             <p><strong>Improve next</strong><br>${result.improvements.join(" ")}</p>
             <details>
@@ -168,6 +196,7 @@
                 <small>average score</small>
             </div>
             <h2>${role.title} interview complete</h2>
+            <p class="feedback-disclaimer">Scores are automated practice guidance, not AI analysis or a hiring prediction.</p>
             <p><strong>Strongest response</strong><br>${strongest.question.question} (${strongest.result.score}/100)</p>
             <p><strong>Practice next</strong><br>${missing.length ? missing.join(", ") : "Keep adding measurable outcomes and role-specific detail."}</p>
             <div class="question-results">
@@ -186,6 +215,8 @@
         isComplete = true;
         awaitingNext = false;
         questionStatus.textContent = "Interview complete";
+        mainVideo.classList.remove("has-feedback");
+        mainVideo.classList.add("has-summary");
         speakerLine.textContent = "Session summary";
         characterFace.hidden = true;
         feedbackZone.innerHTML = summaryMarkup();
@@ -206,7 +237,7 @@
 
         results.push({ question, result });
         postChat("You", response, true);
-        postChat("Professor Parker", "I added detailed feedback to the main panel.", false);
+        postChat("Professor Parker", coachingQuip(result), false);
         setComposerEnabled(false);
         setMood(result.score);
         renderFeedback(result);
@@ -232,6 +263,7 @@
         questionIndex = 0;
         results = [];
         isComplete = false;
+        mainVideo.classList.remove("has-summary");
         characterFace.hidden = false;
         renderQuestion();
     }

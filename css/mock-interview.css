@@ -115,6 +115,8 @@ textarea {
     position: relative;
     display: grid;
     min-height: 420px;
+    height: calc(100vh - 170px);
+    max-height: 760px;
     place-items: center;
     overflow: hidden;
     border: 1px solid var(--meeting-line);
@@ -122,6 +124,24 @@ textarea {
     background:
         radial-gradient(circle at 50% 20%, rgba(14, 113, 235, 0.1), transparent 36%),
         #1a1a1a;
+}
+
+.main-video.has-feedback .speaker-content {
+    gap: 12px;
+}
+
+.main-video.has-feedback .character-face {
+    width: 104px;
+    height: 104px;
+    border-width: 5px;
+}
+
+.main-video.has-feedback .character-mouth {
+    border-width: 4px;
+}
+
+.main-video.has-summary .speaker-content {
+    gap: 12px;
 }
 
 .main-video.is-candidate {
@@ -487,6 +507,14 @@ textarea {
     text-align: left;
 }
 
+.feedback-disclaimer {
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: #d1d1d1;
+    background: #181818;
+    font-size: 0.82rem;
+}
+
 .feedback-zone h2,
 .feedback-zone p {
     margin: 0;
@@ -659,6 +687,7 @@ textarea {
     }
 
     .main-video {
+        height: auto;
         min-height: 360px;
         padding-top: 146px;
     }

@@ -1,6 +1,18 @@
 (function () {
     const MINIMUM_WORDS = 20;
     const STRONG_WORDS = 70;
+    const SYNONYM_GROUPS = [
+        ["test", "check", "verify", "validate", "confirm"],
+        ["result", "outcome", "impact", "improvement"],
+        ["stakeholder", "client", "customer", "user", "owner"],
+        ["log", "telemetry", "audit", "evidence"],
+        ["problem", "issue", "failure", "error", "bug"],
+        ["document", "record", "write", "capture"],
+        ["remove", "revoke", "disable", "restrict"],
+        ["risk", "threat", "exposure", "vulnerability"],
+        ["goal", "objective", "purpose", "need"],
+        ["measure", "metric", "number", "quantify"]
+    ];
 
     function normalize(text) {
         return text
@@ -10,8 +22,58 @@
             .trim();
     }
 
+    function stem(token) {
+        if (token.length > 6 && token.endsWith("ing")) return token.slice(0, -3);
+        if (token.length > 5 && token.endsWith("ed")) return token.slice(0, -2);
+        if (token.length > 5 && token.endsWith("es")) return token.slice(0, -2);
+        if (token.length > 4 && token.endsWith("s")) return token.slice(0, -1);
+        return token;
+    }
+
+    function editDistance(left, right) {
+        const row = Array.from({ length: right.length + 1 }, (_, index) => index);
+
+        for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+            let diagonal = row[0];
+            row[0] = leftIndex;
+
+            for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+                const previous = row[rightIndex];
+                row[rightIndex] = Math.min(
+                    row[rightIndex] + 1,
+                    row[rightIndex - 1] + 1,
+                    diagonal + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1)
+                );
+                diagonal = previous;
+            }
+        }
+
+        return row[right.length];
+    }
+
+    function equivalentToken(answerToken, termToken) {
+        const answerStem = stem(answerToken);
+        const termStem = stem(termToken);
+
+        if (answerStem === termStem) return true;
+
+        const synonymGroup = SYNONYM_GROUPS.find((group) => group.includes(termStem));
+        if (synonymGroup?.includes(answerStem)) return true;
+
+        return answerStem.length >= 5 && termStem.length >= 5 && editDistance(answerStem, termStem) <= 1;
+    }
+
     function containsTerm(answer, term) {
-        return answer.includes(normalize(term));
+        const normalizedTerm = normalize(term);
+
+        if (answer.includes(normalizedTerm)) return true;
+
+        const answerTokens = answer.split(" ").filter(Boolean);
+        const termTokens = normalizedTerm.split(" ").filter(Boolean);
+
+        return termTokens.every((termToken) =>
+            answerTokens.some((answerToken) => equivalentToken(answerToken, termToken))
+        );
     }
 
     function scoreAnswer(question, response) {
@@ -62,6 +124,8 @@
 
         return {
             score,
+            label: "Automated practice score",
+            disclaimer: "This score uses concept and answer-structure rules. It is not AI analysis or a hiring prediction.",
             matchedConcepts: matchedConcepts.map((item) => item.label),
             missingConcepts: missingConcepts.map((item) => item.label),
             strengths,
