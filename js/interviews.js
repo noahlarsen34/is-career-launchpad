@@ -2,6 +2,7 @@
     const list = document.querySelector("#questionList");
     const roleFilter = document.querySelector("#careerRole");
     const typeFilter = document.querySelector("#questionType");
+    const enterMockButton = document.querySelector("#enterMockInterview");
     const roles = window.launchpadData?.interviewRoles || [];
 
     if (!list || !roleFilter || !typeFilter || !window.interviewScoring) {
@@ -68,9 +69,14 @@
         `).join("");
     }
 
+    function openMockInterview() {
+        window.location.href = `mock-interview.html?role=${encodeURIComponent(roleFilter.value)}`;
+    }
+
     roleFilter.addEventListener("change", renderQuestions);
     typeFilter.addEventListener("change", renderQuestions);
     list.addEventListener("click", scoreResponse);
+    enterMockButton?.addEventListener("click", openMockInterview);
 
     renderRoleOptions();
     renderQuestions();
