@@ -26,6 +26,74 @@
     color: var(--muted);
 }
 
+.answer-label {
+    display: block;
+    margin-top: 18px;
+    color: var(--navy);
+    font-weight: 800;
+}
+
+.question-card textarea {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ink);
+    font: inherit;
+    resize: vertical;
+}
+
+.question-card textarea:focus {
+    border-color: var(--blue);
+    outline: 3px solid rgba(30, 111, 159, 0.14);
+}
+
+.score-button {
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.answer-feedback {
+    margin-top: 16px;
+    padding: 16px;
+    border-left: 4px solid var(--teal);
+    border-radius: 8px;
+    background: #edf6f7;
+}
+
+.answer-feedback p + p,
+.answer-feedback details {
+    margin-top: 10px;
+}
+
+.feedback-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.feedback-heading h3 {
+    margin: 0;
+    color: var(--navy);
+}
+
+.score-badge {
+    padding: 5px 10px;
+    border-radius: 999px;
+    color: #ffffff;
+    background: var(--navy);
+    font-weight: 800;
+}
+
+.answer-feedback summary {
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 800;
+}
+
 .question-type {
     display: inline-flex;
     margin-bottom: 10px;

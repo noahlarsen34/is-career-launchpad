@@ -41,12 +41,13 @@
         <section class="interview-layout">
             <div>
                 <div class="toolbar" aria-label="Question filters">
+                    <label for="careerRole">Career</label>
+                    <select id="careerRole"></select>
                     <label for="questionType">Question type</label>
                     <select id="questionType">
                         <option value="all">All questions</option>
                         <option value="behavioral">Behavioral</option>
                         <option value="technical">Technical</option>
-                        <option value="role">Role-specific</option>
                     </select>
                 </div>
 
@@ -65,6 +66,8 @@
     </footer>
 
     <script src="js/data.js"></script>
+    <script src="js/interview-data.js"></script>
+    <script src="js/interview-scoring.js"></script>
     <script src="js/interviews.js"></script>
     <script src="js/quiz.js"></script>
     <script src="js/app.js"></script>
