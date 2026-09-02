@@ -113,29 +113,6 @@
         submitAnswer.disabled = !enabled;
     }
 
-    function coachingQuip(result) {
-        const nextIdea = result.missingConcepts[0] || "a concrete outcome";
-        const quips = result.score >= 76
-            ? [
-                `Okay, résumé wizard—that was strong. One final polish: connect it to ${nextIdea}.`,
-                `Professor Parker almost dropped the clipboard. Keep that clarity and add ${nextIdea}.`,
-                `That answer showed up professionally dressed. Make it even sharper with ${nextIdea}.`
-            ]
-            : result.score >= 45
-                ? [
-                    `We are cooking, but the recipe still needs ${nextIdea}. Check the feedback panel.`,
-                    `Solid foundation—now give it some interview seasoning with ${nextIdea}.`,
-                    `Not bad at all. Your next upgrade is ${nextIdea}; the main panel has the details.`
-                ]
-                : [
-                    `That answer arrived before its luggage. Bring ${nextIdea} into the next version.`,
-                    `Professor Parker's eyebrow has entered the chat. Start by adding ${nextIdea}.`,
-                    `Short and mysterious works for movie trailers, less so for interviews. Add ${nextIdea}.`
-                ];
-
-        return quips[Math.floor(Math.random() * quips.length)];
-    }
-
     function renderQuestion() {
         const question = questions[questionIndex];
 
@@ -151,7 +128,6 @@
         setComposerEnabled(true);
         setMood(null);
         postChat("Professor Parker", question.question, false);
-        mainVideo.scrollIntoView({ behavior: "smooth", block: "start" });
         chatInput.focus();
     }
 
@@ -237,7 +213,7 @@
 
         results.push({ question, result });
         postChat("You", response, true);
-        postChat("Professor Parker", coachingQuip(result), false);
+        postChat("Professor Parker", "I added detailed feedback to the main panel.", false);
         setComposerEnabled(false);
         setMood(result.score);
         renderFeedback(result);
