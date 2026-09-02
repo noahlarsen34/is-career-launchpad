@@ -74,7 +74,8 @@
         const questions = window.launchpadData?.roleInterviewQuestions || [];
 
         return questions.filter((question) =>
-            question.roleId === roleId && (type === "all" || question.type === type)
+            (question.roleId === roleId || question.roleId === "all") &&
+            (type === "all" || question.type === type)
         );
     }
 

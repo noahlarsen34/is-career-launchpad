@@ -13,6 +13,34 @@ window.launchpadData.interviewRoles = [
 
 window.launchpadData.roleInterviewQuestions = [
     {
+        id: "shared-learning",
+        roleId: "all",
+        type: "behavioral",
+        question: "Tell me about a time you had to learn a new technical tool quickly.",
+        tip: "Use STAR and explain how you chose what to learn first, applied it, and measured the outcome.",
+        concepts: [
+            { label: "specific situation", terms: ["project", "deadline", "needed", "task"] },
+            { label: "learning approach", terms: ["documentation", "tutorial", "asked", "practiced", "learned"] },
+            { label: "application", terms: ["built", "used", "applied", "implemented"] },
+            { label: "result", terms: ["result", "saved", "completed", "improved", "delivered"] }
+        ],
+        strongAnswer: "During a two-week analytics project, I needed to use Power Query for the first time. I identified the three transformations required, worked through the official documentation, and tested each step on a small copy of the data. I then applied the process to the full dataset and documented it for my team. We delivered on time and reduced manual cleanup from an hour to about ten minutes."
+    },
+    {
+        id: "shared-feedback",
+        roleId: "all",
+        type: "behavioral",
+        question: "Tell me about a time you received difficult feedback and used it to improve your work.",
+        tip: "Show that you listened, clarified the feedback, changed something concrete, and verified improvement.",
+        concepts: [
+            { label: "specific feedback", terms: ["feedback", "review", "critique", "told me"] },
+            { label: "listening and clarification", terms: ["listened", "asked", "clarified", "understand"] },
+            { label: "specific action", terms: ["changed", "revised", "practiced", "implemented"] },
+            { label: "result", terms: ["result", "improved", "accepted", "delivered", "measured"] }
+        ],
+        strongAnswer: "After a project presentation, my teammate said my technical explanation was accurate but difficult for the client to follow. I asked which sections caused confusion and learned I was introducing details before the business problem. I reorganized the next presentation around the decision, evidence, and recommendation, then practiced it with the teammate. The client understood the recommendation and approved our proposed next step without additional clarification."
+    },
+    {
         id: "software-debugging",
         roleId: "software-developer",
         type: "technical",

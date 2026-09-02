@@ -1,11 +1,11 @@
 :root {
-    --meeting-bg: #0f141b;
-    --meeting-panel: #171d26;
-    --meeting-panel-2: #202938;
-    --meeting-line: #334156;
-    --meeting-text: #f4f7fb;
-    --meeting-muted: #aeb9c8;
-    --meeting-blue: #2d8cff;
+    --meeting-bg: #000000;
+    --meeting-panel: #242424;
+    --meeting-panel-2: #2d2d2d;
+    --meeting-line: #3f3f3f;
+    --meeting-text: #f7f7f7;
+    --meeting-muted: #b5b5b5;
+    --meeting-blue: #0e71eb;
     --meeting-green: #24b47e;
     --meeting-red: #e45353;
     --meeting-gold: #f0bd4f;
@@ -106,7 +106,7 @@ textarea {
 .video-area {
     position: relative;
     display: grid;
-    grid-template-rows: minmax(360px, 1fr) auto;
+    grid-template-rows: minmax(520px, 1fr);
     gap: 12px;
     min-width: 0;
 }
@@ -120,8 +120,8 @@ textarea {
     border: 1px solid var(--meeting-line);
     border-radius: 8px;
     background:
-        radial-gradient(circle at 25% 20%, rgba(45, 140, 255, 0.18), transparent 28%),
-        linear-gradient(135deg, #1c2a3c, #111821);
+        radial-gradient(circle at 50% 20%, rgba(14, 113, 235, 0.1), transparent 36%),
+        #1a1a1a;
 }
 
 .main-video.is-candidate {
@@ -134,14 +134,14 @@ textarea {
     display: grid;
     justify-items: center;
     gap: 22px;
-    width: min(720px, calc(100% - 44px));
+    width: min(820px, calc(100% - 44px));
     text-align: center;
 }
 
 .speaker-line {
-    max-width: 680px;
+    max-width: 760px;
     margin: 0;
-    color: #eaf1f8;
+    color: #ffffff;
     font-size: clamp(1.2rem, 3vw, 2rem);
     font-weight: 800;
     line-height: 1.25;
@@ -217,7 +217,7 @@ textarea {
 .interviewer-avatar {
     width: 72px;
     height: 72px;
-    background: var(--meeting-gold);
+    background: #8b8b8b;
     color: #111821;
     font-weight: 900;
 }
@@ -285,12 +285,12 @@ textarea {
 }
 
 .character-face.is-happy {
-    background: #ffd66e;
+    background: #55c98d;
     transform: translateY(-4px);
 }
 
 .character-face.is-thinking {
-    background: #9dd3dd;
+    background: #6aa9e9;
 }
 
 .character-face.is-thinking .character-mouth {
@@ -302,7 +302,7 @@ textarea {
 }
 
 .character-face.is-concerned {
-    background: #f19a65;
+    background: #e77979;
 }
 
 .character-face.is-concerned .character-mouth {
@@ -350,20 +350,6 @@ textarea {
     font-weight: 800;
 }
 
-.answer-dock {
-    padding: 14px;
-    border: 1px solid var(--meeting-line);
-    border-radius: 8px;
-    background: var(--meeting-panel);
-}
-
-.question-prompt {
-    margin: 0 0 10px;
-    color: #ffffff;
-    font-weight: 800;
-}
-
-.answer-dock label,
 .chat-form label {
     display: block;
     margin-bottom: 6px;
@@ -372,29 +358,20 @@ textarea {
     font-weight: 800;
 }
 
-.answer-dock textarea,
-.chat-form input {
+.chat-form textarea {
     width: 100%;
     border: 1px solid var(--meeting-line);
     border-radius: 8px;
     color: var(--meeting-text);
-    background: #101720;
+    background: #181818;
 }
 
-.answer-dock textarea {
-    min-height: 120px;
+.chat-form textarea {
+    min-height: 90px;
     padding: 10px;
     resize: vertical;
 }
 
-.answer-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.answer-actions button,
 .chat-form button,
 .tool-button {
     min-height: 42px;
@@ -404,18 +381,6 @@ textarea {
     background: var(--meeting-panel-2);
     font-weight: 800;
     cursor: pointer;
-}
-
-.answer-actions button {
-    padding: 8px 14px;
-    background: var(--meeting-blue);
-    border-color: var(--meeting-blue);
-}
-
-.answer-actions p {
-    min-height: 24px;
-    margin: 0;
-    color: var(--meeting-muted);
 }
 
 .chat-panel {
@@ -466,11 +431,11 @@ textarea {
 .chat-message {
     padding: 10px;
     border-radius: 8px;
-    background: #101720;
+    background: #191919;
 }
 
 .chat-message.you {
-    background: #173555;
+    background: #163d6d;
 }
 
 .chat-message strong {
@@ -492,41 +457,147 @@ textarea {
     border-top: 1px solid var(--meeting-line);
 }
 
-.chat-form input {
-    min-height: 42px;
-    padding: 8px 10px;
+.chat-form p {
+    min-height: 20px;
+    margin: 0;
+    color: var(--meeting-muted);
+    font-size: 0.8rem;
 }
 
 .chat-form button {
     padding: 8px 12px;
+    border-color: var(--meeting-blue);
+    background: var(--meeting-blue);
 }
 
-.final-feedback {
-    max-height: 220px;
+.chat-form button:disabled,
+.chat-form textarea:disabled {
+    cursor: not-allowed;
+    opacity: 0.58;
+}
+
+.feedback-zone {
+    width: 100%;
+    max-height: 390px;
     overflow: auto;
-    padding: 14px;
-    border: 1px solid rgba(36, 180, 126, 0.55);
+    padding: 20px;
+    border: 1px solid #505050;
     border-radius: 8px;
-    background: #10251f;
+    background: #242424;
+    text-align: left;
 }
 
-.final-feedback h2,
-.final-feedback p {
+.feedback-zone h2,
+.feedback-zone p {
     margin: 0;
 }
 
-.final-feedback p + p {
-    margin-top: 8px;
+.feedback-zone p + p,
+.feedback-zone details,
+.feedback-zone .question-results,
+.feedback-zone .summary-actions {
+    margin-top: 14px;
 }
 
-.score-pill {
-    display: inline-flex;
-    margin: 8px 0;
-    padding: 5px 9px;
+.feedback-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.feedback-label {
+    color: var(--meeting-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.feedback-score {
+    padding: 6px 10px;
     border-radius: 999px;
-    color: #06140f;
-    background: #7ee1b7;
+    color: #ffffff;
+    background: var(--meeting-blue);
     font-weight: 900;
+}
+
+.feedback-zone summary {
+    color: #6db2ff;
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.next-question,
+.summary-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    margin-top: 16px;
+    padding: 8px 14px;
+    border: 1px solid var(--meeting-blue);
+    border-radius: 8px;
+    color: #ffffff;
+    background: var(--meeting-blue);
+    font: inherit;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.summary-score {
+    display: grid;
+    justify-items: center;
+    float: right;
+    width: 112px;
+    height: 112px;
+    margin: 0 0 16px 20px;
+    place-content: center;
+    border: 5px solid var(--meeting-blue);
+    border-radius: 50%;
+}
+
+.summary-score span {
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.summary-score small {
+    margin-top: 5px;
+    color: var(--meeting-muted);
+}
+
+.question-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    clear: both;
+}
+
+.question-results span {
+    display: grid;
+    justify-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: #181818;
+    color: var(--meeting-muted);
+}
+
+.question-results strong {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.summary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.summary-actions a {
+    border-color: var(--meeting-line);
+    background: var(--meeting-panel-2);
 }
 
 .bottom-toolbar {
@@ -578,7 +649,7 @@ textarea {
 
     .meeting-status,
     .bottom-toolbar,
-    .answer-actions {
+        .summary-actions {
         align-items: stretch;
         display: grid;
     }

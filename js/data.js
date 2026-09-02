@@ -1,11 +1,18 @@
 window.launchpadData = {
     careers: [
         {
-            title: "Technology Consultant",
-            summary: "Helps clients improve processes, select systems, and deliver technology projects.",
-            setting: "Client-facing",
-            timeline: "Recruit early fall",
-            skills: ["Process mapping", "Presentations", "ERP", "SQL"]
+            title: "Software / Application Developer",
+            summary: "Designs, builds, tests, and maintains applications that solve business and user problems.",
+            setting: "Engineering teams",
+            timeline: "Build projects and practice coding",
+            skills: ["JavaScript", "APIs", "Databases", "Git", "Testing"]
+        },
+        {
+            title: "Business / Systems Analyst",
+            summary: "Translates business needs into clear requirements, processes, and technology solutions.",
+            setting: "Business and IT teams",
+            timeline: "Strong internship fit",
+            skills: ["Requirements", "Process mapping", "SQL", "Testing", "Communication"]
         },
         {
             title: "Cybersecurity Analyst",
@@ -15,32 +22,39 @@ window.launchpadData = {
             skills: ["Networks", "Risk", "Python", "Access controls"]
         },
         {
-            title: "Data Analyst",
-            summary: "Turns messy business data into dashboards, insights, and recommended decisions.",
+            title: "Data Analyst / Data Scientist",
+            summary: "Cleans and analyzes data to produce models, dashboards, insights, and business recommendations.",
             setting: "Analytics teams",
             timeline: "Portfolio matters",
-            skills: ["SQL", "Tableau", "Statistics", "Storytelling"]
+            skills: ["SQL", "Power BI", "Python", "Statistics", "Storytelling"]
         },
         {
-            title: "Product Analyst",
-            summary: "Connects user needs, metrics, and engineering work so teams build the right features.",
+            title: "IT Project Manager",
+            summary: "Coordinates scope, schedules, risks, resources, and stakeholders to deliver technology projects.",
+            setting: "Cross-functional teams",
+            timeline: "Show leadership and delivery",
+            skills: ["Scope", "Scheduling", "Risk", "Agile", "Stakeholders"]
+        },
+        {
+            title: "UX Designer / Product Manager",
+            summary: "Connects user research, product goals, and engineering work to create useful experiences.",
             setting: "Product teams",
             timeline: "Show project impact",
-            skills: ["Experiments", "User research", "Metrics", "Roadmaps"]
+            skills: ["User research", "Prototyping", "Usability testing", "Metrics", "Roadmaps"]
         },
         {
-            title: "Systems Analyst",
-            summary: "Documents requirements and coordinates between business teams and technical builders.",
-            setting: "Internal IT",
-            timeline: "Strong internship fit",
-            skills: ["Requirements", "Testing", "APIs", "Documentation"]
+            title: "ERP / Systems Consultant",
+            summary: "Helps organizations configure enterprise platforms and improve end-to-end business processes.",
+            setting: "Client-facing implementation",
+            timeline: "Learn a platform and business process",
+            skills: ["ERP", "Process design", "Configuration", "Data migration", "Change management"]
         },
         {
-            title: "Software-Oriented IS Role",
-            summary: "Builds practical business applications while using IS context to solve real workflow problems.",
-            setting: "Engineering-adjacent",
-            timeline: "Practice coding weekly",
-            skills: ["JavaScript", "Databases", "Git", "Debugging"]
+            title: "Cloud / Infrastructure Engineer",
+            summary: "Builds and operates secure, reliable computing, storage, networking, and cloud environments.",
+            setting: "Cloud and operations teams",
+            timeline: "Build labs and earn fundamentals",
+            skills: ["Cloud services", "Networking", "Linux", "Automation", "Monitoring"]
         }
     ],
     interviewQuestions: [

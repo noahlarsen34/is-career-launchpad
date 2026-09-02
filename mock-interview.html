@@ -41,6 +41,7 @@
                         </div>
                         <div class="main-candidate-avatar" id="mainCandidateAvatar" aria-hidden="true" hidden>You</div>
                         <p class="speaker-line" id="speakerLine">Welcome. I will ask questions tailored to your role.</p>
+                        <section class="feedback-zone" id="feedbackZone" tabindex="-1" aria-live="polite" hidden></section>
                     </div>
 
                     <span class="name-label" id="mainNameLabel">Professor Parker</span>
@@ -54,15 +55,6 @@
                     </article>
                 </div>
 
-                <section class="answer-dock" aria-label="Interview answer">
-                    <p class="question-prompt" id="mockQuestion"></p>
-                    <label for="mockAnswer">Your answer</label>
-                    <textarea id="mockAnswer" rows="5" placeholder="Type your answer here, or use the microphone control."></textarea>
-                    <div class="answer-actions">
-                        <button type="button" id="submitAnswer">Submit Answer</button>
-                        <p id="micStatus" aria-live="polite"></p>
-                    </div>
-                </section>
             </div>
 
             <aside class="chat-panel" id="chatPanel" aria-label="Meeting chat">
@@ -81,14 +73,13 @@
                     </div>
                 </div>
                 <form class="chat-form" id="chatForm">
-                    <label for="chatInput">Message</label>
-                    <input id="chatInput" type="text" placeholder="Send a message...">
-                    <button type="submit">Send</button>
+                    <label for="chatInput">Your interview answer</label>
+                    <textarea id="chatInput" rows="4" placeholder="Type your answer here..."></textarea>
+                    <p id="micStatus" aria-live="polite"></p>
+                    <button type="submit" id="submitAnswer">Submit Answer</button>
                 </form>
             </aside>
         </section>
-
-        <section class="final-feedback" id="finalFeedback" aria-live="polite" hidden></section>
 
         <nav class="bottom-toolbar" aria-label="Meeting controls">
             <button type="button" class="tool-button" id="muteButton">Mute</button>

@@ -3,38 +3,31 @@
     const roles = window.launchpadData?.interviewRoles || [];
     const roleId = params.get("role") || roles[0]?.id;
     const role = roles.find((item) => item.id === roleId) || roles[0];
-    const questions = window.interviewScoring?.questionsForRole(role?.id, "all").slice(0, 3) || [];
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     const meetingTitle = document.querySelector("#meetingTitle");
     const questionStatus = document.querySelector("#questionStatus");
     const connectionStatus = document.querySelector("#connectionStatus");
-    const mainVideo = document.querySelector("#mainVideo");
-    const mainNameLabel = document.querySelector("#mainNameLabel");
     const speakerContent = document.querySelector("#speakerContent");
     const speakerLine = document.querySelector("#speakerLine");
+    const feedbackZone = document.querySelector("#feedbackZone");
     const characterFace = document.querySelector("#characterFace");
-    const mainCandidateAvatar = document.querySelector("#mainCandidateAvatar");
     const screenSharePreview = document.querySelector("#screenSharePreview");
     const participantTile = document.querySelector("#participantTile");
     const participantStatus = document.querySelector("#participantStatus");
     const tileAvatar = document.querySelector("#tileAvatar");
-    const tileNameLabel = document.querySelector("#tileNameLabel");
-    const mockQuestion = document.querySelector("#mockQuestion");
-    const mockAnswer = document.querySelector("#mockAnswer");
+    const chatPanel = document.querySelector("#chatPanel");
+    const chatLog = document.querySelector("#chatLog");
+    const chatForm = document.querySelector("#chatForm");
+    const chatInput = document.querySelector("#chatInput");
     const submitAnswer = document.querySelector("#submitAnswer");
+    const chatCount = document.querySelector("#chatCount");
     const micStatus = document.querySelector("#micStatus");
     const muteButton = document.querySelector("#muteButton");
     const cameraButton = document.querySelector("#cameraButton");
     const participantsButton = document.querySelector("#participantsButton");
     const chatButton = document.querySelector("#chatButton");
     const shareButton = document.querySelector("#shareButton");
-    const chatPanel = document.querySelector("#chatPanel");
-    const chatLog = document.querySelector("#chatLog");
-    const chatForm = document.querySelector("#chatForm");
-    const chatInput = document.querySelector("#chatInput");
-    const chatCount = document.querySelector("#chatCount");
-    const finalFeedback = document.querySelector("#finalFeedback");
 
     let questionIndex = 0;
     let results = [];
@@ -44,57 +37,38 @@
     let isCameraOff = false;
     let isSharing = false;
     let isComplete = false;
+    let awaitingNext = false;
     let chatMessages = 2;
+    let moodTimer = null;
 
-    if (!role || !questions.length || !window.interviewScoring) {
+    function shuffled(items) {
+        const copy = [...items];
+
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+            const randomIndex = Math.floor(Math.random() * (index + 1));
+            [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+        }
+
+        return copy;
+    }
+
+    function buildSession() {
+        const allQuestions = window.launchpadData?.roleInterviewQuestions || [];
+        const technical = allQuestions.filter((item) => item.roleId === role?.id && item.type === "technical");
+        const roleBehavioral = allQuestions.filter((item) => item.roleId === role?.id && item.type === "behavioral");
+        const sharedBehavioral = allQuestions.filter((item) => item.roleId === "all");
+
+        return shuffled([
+            ...shuffled(technical).slice(0, 2),
+            ...shuffled(roleBehavioral).slice(0, 1),
+            ...shuffled(sharedBehavioral).slice(0, 1)
+        ]);
+    }
+
+    let questions = buildSession();
+
+    if (!role || questions.length !== 4 || !window.interviewScoring) {
         return;
-    }
-
-    function setSpeaker(person, message) {
-        const isCandidate = person === "candidate";
-
-        mainVideo.classList.toggle("is-candidate", isCandidate);
-        mainNameLabel.textContent = isCandidate ? "You" : "Professor Parker";
-        characterFace.hidden = isCandidate;
-        mainCandidateAvatar.hidden = !isCandidate;
-        mainCandidateAvatar.classList.toggle("is-off", isCandidate && isCameraOff);
-        speakerLine.textContent = message;
-        tileNameLabel.textContent = isCandidate ? "Professor Parker" : "You";
-        tileAvatar.textContent = isCandidate ? "PP" : "You";
-        tileAvatar.classList.toggle("candidate-avatar", !isCandidate);
-        tileAvatar.classList.toggle("interviewer-avatar", isCandidate);
-        tileAvatar.classList.toggle("is-off", !isCandidate && isCameraOff);
-        participantStatus.textContent = isCandidate
-            ? "Listening"
-            : isCameraOff ? "Camera off" : "Camera on";
-    }
-
-    function setMood(score) {
-        characterFace.classList.remove("is-happy", "is-thinking", "is-concerned");
-
-        if (typeof score !== "number") {
-            return;
-        }
-
-        if (score >= 76) {
-            characterFace.classList.add("is-happy");
-        } else if (score >= 45) {
-            characterFace.classList.add("is-thinking");
-        } else {
-            characterFace.classList.add("is-concerned");
-        }
-    }
-
-    function reactionForScore(score) {
-        if (score >= 76) {
-            return "Strong answer. Specific, confident, and nicely tied to the role.";
-        }
-
-        if (score >= 45) {
-            return "Good start. Add a clearer result and one more role-specific detail.";
-        }
-
-        return "Try again with a full STAR structure: situation, task, action, result.";
     }
 
     function postChat(author, message, isUser) {
@@ -112,20 +86,71 @@
         chatCount.textContent = chatMessages;
     }
 
+    function setMood(score) {
+        window.clearTimeout(moodTimer);
+        characterFace.classList.remove("is-happy", "is-thinking", "is-concerned");
+
+        if (typeof score !== "number") {
+            return;
+        }
+
+        if (score >= 76) {
+            characterFace.classList.add("is-happy");
+        } else if (score >= 45) {
+            characterFace.classList.add("is-thinking");
+        } else {
+            characterFace.classList.add("is-concerned");
+        }
+
+        moodTimer = window.setTimeout(() => {
+            characterFace.classList.remove("is-happy", "is-thinking", "is-concerned");
+        }, 2200);
+    }
+
+    function setComposerEnabled(enabled) {
+        chatInput.disabled = !enabled;
+        submitAnswer.disabled = !enabled;
+    }
+
     function renderQuestion() {
         const question = questions[questionIndex];
 
+        awaitingNext = false;
         questionStatus.textContent = `Question ${questionIndex + 1} of ${questions.length}`;
-        mockQuestion.textContent = question.question;
-        mockAnswer.value = "";
-        submitAnswer.textContent = questionIndex === questions.length - 1 ? "Finish Interview" : "Submit Answer";
+        speakerLine.textContent = question.question;
+        feedbackZone.hidden = true;
+        feedbackZone.innerHTML = "";
+        characterFace.hidden = false;
+        chatInput.value = "";
+        submitAnswer.textContent = "Submit Answer";
+        setComposerEnabled(true);
         setMood(null);
-        setSpeaker("interviewer", question.question);
         postChat("Professor Parker", question.question, false);
-        mockAnswer.focus();
+        chatInput.focus();
     }
 
-    function finalMarkup() {
+    function renderFeedback(result) {
+        speakerLine.textContent = "Interview feedback";
+        feedbackZone.innerHTML = `
+            <div class="feedback-heading">
+                <span class="feedback-label">Question ${questionIndex + 1}</span>
+                <strong class="feedback-score">${result.score}/100</strong>
+            </div>
+            <p><strong>What worked</strong><br>${result.strengths.join(" ")}</p>
+            <p><strong>Improve next</strong><br>${result.improvements.join(" ")}</p>
+            <details>
+                <summary>See a strong response</summary>
+                <p>${result.strongAnswer}</p>
+            </details>
+            <button class="next-question" type="button" id="nextQuestion">
+                ${questionIndex === questions.length - 1 ? "View summary" : "Next question"}
+            </button>
+        `;
+        feedbackZone.hidden = false;
+        feedbackZone.focus();
+    }
+
+    function summaryMarkup() {
         const average = Math.round(
             results.reduce((total, item) => total + item.result.score, 0) / results.length
         );
@@ -138,59 +163,77 @@
             .slice(0, 5);
 
         return `
-            <h2>Interview feedback</h2>
-            <span class="score-pill">${average}/100 average</span>
-            <p><strong>Best response:</strong> ${strongest.question.question}</p>
-            <p><strong>What worked:</strong> ${strongest.result.strengths.join(" ")}</p>
-            <p><strong>Improve next:</strong> ${
-                missing.length
-                    ? `Work in stronger evidence for ${missing.join(", ")}.`
-                    : "Keep connecting your examples directly to the job."
-            }</p>
+            <div class="summary-score">
+                <span>${average}</span>
+                <small>average score</small>
+            </div>
+            <h2>${role.title} interview complete</h2>
+            <p><strong>Strongest response</strong><br>${strongest.question.question} (${strongest.result.score}/100)</p>
+            <p><strong>Practice next</strong><br>${missing.length ? missing.join(", ") : "Keep adding measurable outcomes and role-specific detail."}</p>
+            <div class="question-results">
+                ${results.map((item, index) => `
+                    <span>Q${index + 1}<strong>${item.result.score}</strong></span>
+                `).join("")}
+            </div>
+            <div class="summary-actions">
+                <button class="next-question" type="button" id="restartInterview">Practice again</button>
+                <a href="interviews.html">Choose another career</a>
+            </div>
         `;
     }
 
     function finishInterview() {
         isComplete = true;
-        finalFeedback.innerHTML = finalMarkup();
-        finalFeedback.hidden = false;
+        awaitingNext = false;
         questionStatus.textContent = "Interview complete";
-        submitAnswer.textContent = "Restart Interview";
-        setMood(90);
-        setSpeaker("interviewer", "Interview complete. I put your real feedback below the meeting.");
-        postChat("Professor Parker", "Interview complete. Review your feedback below the meeting.", false);
+        speakerLine.textContent = "Session summary";
+        characterFace.hidden = true;
+        feedbackZone.innerHTML = summaryMarkup();
+        feedbackZone.hidden = false;
+        postChat("Professor Parker", "Interview complete. Your summary is in the feedback zone.", false);
+        setComposerEnabled(false);
     }
 
     function submitResponse() {
-        if (isComplete) {
-            questionIndex = 0;
-            results = [];
-            isComplete = false;
-            finalFeedback.hidden = true;
-            renderQuestion();
+        const response = chatInput.value.trim();
+
+        if (!response || awaitingNext || isComplete) {
             return;
         }
 
         const question = questions[questionIndex];
-        const result = window.interviewScoring.scoreAnswer(question, mockAnswer.value);
+        const result = window.interviewScoring.scoreAnswer(question, response);
 
         results.push({ question, result });
-        setSpeaker("candidate", mockAnswer.value || "I need a moment to build a fuller answer.");
-        postChat("You", mockAnswer.value || "I need a moment to build a fuller answer.", true);
+        postChat("You", response, true);
+        postChat("Professor Parker", "I added detailed feedback to the main panel.", false);
+        setComposerEnabled(false);
+        setMood(result.score);
+        renderFeedback(result);
+        awaitingNext = true;
+    }
 
-        window.setTimeout(() => {
-            setMood(result.score);
-            setSpeaker("interviewer", reactionForScore(result.score));
-            postChat("Professor Parker", reactionForScore(result.score), false);
+    function nextQuestion() {
+        if (!awaitingNext) {
+            return;
+        }
 
-            if (questionIndex >= questions.length - 1) {
-                window.setTimeout(finishInterview, 900);
-                return;
-            }
+        if (questionIndex >= questions.length - 1) {
+            finishInterview();
+            return;
+        }
 
-            questionIndex += 1;
-            window.setTimeout(renderQuestion, 1100);
-        }, 600);
+        questionIndex += 1;
+        renderQuestion();
+    }
+
+    function restartInterview() {
+        questions = buildSession();
+        questionIndex = 0;
+        results = [];
+        isComplete = false;
+        characterFace.hidden = false;
+        renderQuestion();
     }
 
     function setupSpeechRecognition() {
@@ -220,7 +263,7 @@
         });
 
         recognition.addEventListener("result", (event) => {
-            mockAnswer.value = Array.from(event.results)
+            chatInput.value = Array.from(event.results)
                 .map((result) => result[0].transcript)
                 .join(" ");
         });
@@ -239,27 +282,20 @@
                     micStatus.textContent = "Speech input could not start in this browser.";
                 }
             }
-
             return;
         }
 
         isMuted = true;
         muteButton.textContent = "Unmute";
         muteButton.classList.add("is-danger");
-
-        if (recognition && isListening) {
-            recognition.stop();
-        }
+        if (recognition && isListening) recognition.stop();
     }
 
     function toggleCamera() {
         isCameraOff = !isCameraOff;
-        mainCandidateAvatar.classList.toggle("is-off", isCameraOff && mainNameLabel.textContent === "You");
-        tileAvatar.classList.toggle("is-off", isCameraOff && mainNameLabel.textContent !== "You");
+        tileAvatar.classList.toggle("is-off", isCameraOff);
         participantTile.classList.toggle("is-camera-off", isCameraOff);
-        participantStatus.textContent = mainNameLabel.textContent === "You"
-            ? "Listening"
-            : isCameraOff ? "Camera off" : "Camera on";
+        participantStatus.textContent = isCameraOff ? "Camera off" : "Camera on";
         cameraButton.textContent = isCameraOff ? "Start Video" : "Stop Video";
         cameraButton.classList.toggle("is-danger", isCameraOff);
     }
@@ -273,34 +309,30 @@
         connectionStatus.textContent = isSharing ? "Sharing screen" : "Connected";
     }
 
-    function toggleChat() {
-        chatPanel.classList.toggle("is-hidden");
-        chatButton.classList.toggle("is-active", !chatPanel.classList.contains("is-hidden"));
-    }
-
-    function toggleParticipants() {
-        participantTile.hidden = !participantTile.hidden;
-        participantsButton.classList.toggle("is-active", !participantTile.hidden);
-    }
-
     chatForm.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        const message = chatInput.value.trim();
-
-        if (!message) {
-            return;
-        }
-
-        postChat("You", message, true);
-        chatInput.value = "";
+        submitResponse();
     });
-
-    submitAnswer.addEventListener("click", submitResponse);
+    chatInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+            event.preventDefault();
+            submitResponse();
+        }
+    });
+    feedbackZone.addEventListener("click", (event) => {
+        if (event.target.closest("#nextQuestion")) nextQuestion();
+        if (event.target.closest("#restartInterview")) restartInterview();
+    });
     muteButton.addEventListener("click", toggleMute);
     cameraButton.addEventListener("click", toggleCamera);
-    participantsButton.addEventListener("click", toggleParticipants);
-    chatButton.addEventListener("click", toggleChat);
+    participantsButton.addEventListener("click", () => {
+        participantTile.hidden = !participantTile.hidden;
+        participantsButton.classList.toggle("is-active", !participantTile.hidden);
+    });
+    chatButton.addEventListener("click", () => {
+        chatPanel.classList.toggle("is-hidden");
+        chatButton.classList.toggle("is-active", !chatPanel.classList.contains("is-hidden"));
+    });
     shareButton.addEventListener("click", toggleShare);
 
     meetingTitle.textContent = `${role.title} Mock Interview`;
