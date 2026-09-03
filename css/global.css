@@ -314,10 +314,6 @@ main {
     color: var(--muted);
 }
 
-.accent-card {
-    border-top: 4px solid var(--gold);
-}
-
 .card-label,
 .card-link {
     color: var(--teal);
