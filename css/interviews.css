@@ -151,10 +151,6 @@
     padding: 22px;
 }
 
-.study-card:nth-of-type(5) {
-    grid-column: 1 / -1;
-}
-
 .study-card-heading,
 .study-card-heading > div {
     display: flex;
