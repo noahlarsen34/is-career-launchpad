@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYU IS Career Launchpad | Career Discovery & Arena</title>
+  <style>
+    :root {
+      --byu-navy: #002E5D;
+      --byu-royal: #0062B8;
+      --byu-sand: #F4EFEA;
+      --byu-sand-dark: #E4DCD3;
+      --byu-slate: #1B242C;
+      --byu-white: #FFFFFF;
+      --byu-gold: #C28B1E;
+      --byu-crimson: #9E1B32;
+      --colosseum-stone: #2A2521;
+      --colosseum-sand: #3D352E;
+      --torch-gold: #FF9E1B;
+      --neon-cyan: #00f0ff;
+      --shadow-soft: 0 4px 18px rgba(0, 46, 93, 0.08);
+      --shadow-hard: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--byu-sand);
+      color: var(--byu-slate);
+      line-height: 1.5;
+      padding-bottom: 100px;
+    }
+
+    .top-strip {
+      background: var(--byu-navy);
+      color: var(--byu-white);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid var(--byu-royal);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: var(--byu-sand);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      padding-left: 10px;
+    }
+
+    .home-portal {
+      color: var(--byu-sand);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid rgba(244, 239, 234, 0.4);
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .home-portal:hover {
+      background: var(--byu-royal);
+      color: var(--byu-white);
+      border-color: var(--byu-royal);
+    }
+
+    .content-container {
+      max-width: 1220px;
+      margin: 32px auto 0;
+      padding: 0 20px;
+    }
+
+    /* PART A: CAROUSEL */
+    .module-section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--byu-navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .section-subtitle {
+      color: #475569;
+      font-size: 0.95rem;
+      max-width: 820px;
+    }
+
+    .carousel-controls-bar {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .pill-btn {
+      border: 1px solid var(--byu-sand-dark);
+      background: var(--byu-white);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--byu-slate);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .pill-btn.active {
+      background: var(--byu-royal);
+      color: var(--byu-white);
+      border-color: var(--byu-royal);
+    }
+
+    .carousel-outer-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .side-scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: var(--byu-white);
+      border: 2px solid var(--byu-sand-dark);
+      border-radius: 50%;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--byu-navy);
+      z-index: 10;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .side-scroll-btn:hover {
+      background: var(--byu-royal);
+      color: var(--byu-white);
+      border-color: var(--byu-royal);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .side-scroll-btn.hidden {
+      display: none !important;
+    }
+
+    .side-scroll-left { left: -18px; }
+    .side-scroll-right { right: -18px; }
+
+    @media (max-width: 600px) {
+      .side-scroll-left { left: -8px; }
+      .side-scroll-right { right: -8px; }
+    }
+
+    .carousel-viewport {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 12px 6px 16px;
+      width: 100%;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .carousel-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+    }
+
+    .career-card {
+      width: 280px;
+      background: var(--byu-white);
+      border: 2px solid var(--byu-sand-dark);
+      border-radius: 12px;
+      padding: 22px;
+      cursor: pointer;
+      transition: all 0.22s ease-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .career-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 46, 93, 0.14);
+    }
+
+    .career-card.selected {
+      outline: 3px solid var(--byu-navy);
+      box-shadow: 0 8px 22px rgba(0, 46, 93, 0.2);
+    }
+
+    .card-theme-swe   { border-top: 6px solid #0062B8; }
+    .card-theme-ba    { border-top: 6px solid #C28B1E; }
+    .card-theme-data  { border-top: 6px solid #10B981; }
+    .card-theme-sec   { border-top: 6px solid #9E1B32; }
+    .card-theme-pm    { border-top: 6px solid #002E5D; }
+    .card-theme-uxpm  { border-top: 6px solid #8B5CF6; }
+    .card-theme-erp   { border-top: 6px solid #F59E0B; }
+    .card-theme-cloud { border-top: 6px solid #06B6D4; }
+
+    .badge-swe   { background: #E0F2FE; color: #0284C7; }
+    .badge-ba    { background: #FEF3C7; color: #B45309; }
+    .badge-data  { background: #D1FAE5; color: #047857; }
+    .badge-sec   { background: #FEE2E2; color: #B91C1C; }
+    .badge-pm    { background: #E2E8F0; color: #002E5D; }
+    .badge-uxpm  { background: #EDE9FE; color: #6D28D9; }
+    .badge-erp   { background: #FFEDD5; color: #C2410C; }
+    .badge-cloud { background: #CFFAFE; color: #0E7490; }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--byu-navy);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .card-snippet {
+      font-size: 0.84rem;
+      color: #64748B;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .card-inspect-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 20px;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+
+    .card-inspect-tag.inspected { background: #D1FAE5; color: #065F46; }
+    .card-inspect-tag.unopened { background: var(--byu-sand-dark); color: #64748B; }
+
+    .detail-panel {
+      background: var(--byu-white);
+      border-radius: 12px;
+      border: 1px solid var(--byu-sand-dark);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+      margin-top: 22px;
+    }
+
+    .detail-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--byu-sand-dark);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .detail-heading {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--byu-navy);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    .detail-cell {
+      background: #FAF8F5;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid var(--byu-sand-dark);
+      border-left-width: 5px;
+    }
+
+    .detail-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--byu-royal);
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .detail-val {
+      font-size: 0.92rem;
+      color: var(--byu-slate);
+    }
+
+    .pills-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tool-pill {
+      background: var(--byu-white);
+      border: 1px solid var(--byu-sand-dark);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--byu-navy);
+    }
+
+    .read-more-bar {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #EEF4FA;
+      border: 1px solid #CFE2F3;
+      padding: 14px 20px;
+      border-radius: 8px;
+    }
+
+    .btn-toggle-readmore {
+      background: var(--byu-royal);
+      color: var(--byu-white);
+      border: none;
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-toggle-readmore:hover {
+      background: var(--byu-navy);
+    }
+
+    .deep-dive-drawer {
+      display: none;
+      margin-top: 22px;
+      border-top: 2px dashed var(--byu-sand-dark);
+      padding-top: 24px;
+      animation: expandDrawer 0.3s ease-out;
+    }
+
+    .deep-dive-drawer.open {
+      display: block;
+    }
+
+    @keyframes expandDrawer {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .drawer-section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--byu-navy);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-table-wrapper {
+      background: var(--byu-white);
+      border: 1px solid var(--byu-sand-dark);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .stats-table th {
+      background: var(--byu-navy);
+      color: var(--byu-white);
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .stats-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--byu-sand-dark);
+      color: #334155;
+    }
+
+    .stats-table tr:nth-child(even) td {
+      background: #FAF8F5;
+    }
+
+    .schedule-timeline {
+      background: #FAF8F5;
+      border: 1px solid var(--byu-sand-dark);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+
+    .schedule-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+    }
+
+    .schedule-time {
+      font-weight: 800;
+      color: var(--byu-royal);
+      min-width: 85px;
+    }
+
+    .schedule-desc {
+      color: var(--byu-slate);
+    }
+
+    .pros-cons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 650px) {
+      .pros-cons-grid { grid-template-columns: 1fr; }
+    }
+
+    .pros-card {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .cons-card {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .pros-cons-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 8px;
+    }
+
+    .pros-cons-list {
+      padding-left: 18px;
+      font-size: 0.86rem;
+      color: #334155;
+    }
+
+    .pros-cons-list li { margin-bottom: 4px; }
+
+    .citation-foot {
+      font-size: 0.75rem;
+      color: #64748B;
+      text-align: right;
+      margin-top: 12px;
+    }
+
+    /* GATEWAY LOCK */
+    .arena-gate {
+      background: var(--byu-white);
+      border: 2px dashed var(--byu-sand-dark);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      margin: 32px 0 48px;
+      transition: all 0.3s;
+    }
+
+    .arena-gate.open {
+      border: 2px solid var(--byu-royal);
+      background: #F0F6FC;
+    }
+
+    .gate-meter {
+      max-width: 360px;
+      height: 10px;
+      background: var(--byu-sand-dark);
+      border-radius: 10px;
+      margin: 14px auto;
+      overflow: hidden;
+    }
+
+    .gate-meter-fill {
+      height: 100%;
+      background: var(--byu-royal);
+      width: 12.5%;
+      transition: width 0.35s ease;
+    }
+
+    .btn-enter-arena {
+      background: var(--byu-navy);
+      color: var(--byu-white);
+      border: none;
+      padding: 14px 34px;
+      font-size: 0.98rem;
+      font-weight: 900;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .btn-enter-arena:hover {
+      background: var(--byu-royal);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 98, 184, 0.3);
+    }
+
+    /* ARENA ORIENTATION CARD */
+    .arena-standalone-guide {
+      background: var(--byu-white);
+      border: 1px solid var(--byu-sand-dark);
+      border-radius: 12px;
+      padding: 30px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-soft);
+      border-left: 6px solid var(--byu-royal);
+    }
+
+    .guide-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      background: #E0F2FE;
+      color: var(--byu-royal);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .arena-standalone-guide h2 {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--byu-navy);
+      margin-bottom: 6px;
+    }
+
+    .arena-standalone-guide p {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      max-width: 960px;
+      margin-bottom: 20px;
+    }
+
+    .guide-steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .guide-steps-row { grid-template-columns: 1fr; }
+    }
+
+    .guide-step-box {
+      background: #FAF8F5;
+      border: 1px solid var(--byu-sand-dark);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .step-num {
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: var(--byu-royal);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-size: 0.88rem;
+      color: var(--byu-slate);
+      line-height: 1.4;
+    }
+
+    /* PART B: COLOSSEUM ARENA */
+    .arena-colosseum {
+      display: none;
+      background: #110e0c;
+      border-radius: 16px;
+      box-shadow: var(--shadow-hard);
+      overflow: hidden;
+      color: var(--byu-white);
+      margin-top: 20px;
+      border: 3px solid #4a3d33;
+    }
+
+    .arena-colosseum.unlocked {
+      display: block;
+      animation: colosseumDeploy 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes colosseumDeploy {
+      from { opacity: 0; transform: scale(0.97) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Pinned Top Roster Bar */
+    .arena-skyline {
+      background: linear-gradient(180deg, #1f1915 0%, #15100d 100%);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #3d3027;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .roster-controls-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .roster-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .roster-select {
+      background: #2b231d;
+      color: var(--byu-sand);
+      border: 1px solid #5a4739;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    /* ROMAN COLOSSEUM MAT & ARCHES */
+    .battle-canvas {
+      background: radial-gradient(circle at center, #3a3028 0%, #17120e 90%);
+      position: relative;
+      padding: 30px 20px 10px;
+      overflow: hidden;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .colosseum-arches {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      background-image:
+        radial-gradient(ellipse at 15% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 35% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 50% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 65% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 85% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .colosseum-torch {
+      position: absolute;
+      top: 40px;
+      width: 18px;
+      height: 28px;
+      background: #8b4513;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .colosseum-torch::after {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 2px;
+      width: 14px;
+      height: 20px;
+      background: radial-gradient(circle, #ffe600 20%, #ff5500 80%, transparent);
+      border-radius: 50% 50% 20% 20%;
+      animation: torchFlicker 0.25s infinite alternate;
+      filter: drop-shadow(0 0 10px #ff9e1b);
+    }
+
+    @keyframes torchFlicker {
+      0% { transform: scale(0.9) rotate(-3deg); opacity: 0.85; }
+      100% { transform: scale(1.15) rotate(3deg); opacity: 1; }
+    }
+
+    .torch-left { left: 45px; }
+    .torch-right { right: 45px; }
+
+    .iron-chain {
+      position: absolute;
+      width: 100%;
+      height: 6px;
+      background-image: repeating-linear-gradient(90deg, #443c34 0px, #443c34 8px, #1c1612 9px, #1c1612 16px);
+      border-top: 1px solid #706355;
+      border-bottom: 1px solid #000;
+      z-index: 1;
+      opacity: 0.7;
+    }
+    .chain-1 { top: 120px; }
+    .chain-2 { top: 165px; }
+    .chain-3 { top: 210px; }
+
+    .fighters-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      position: relative;
+      z-index: 5;
+      padding: 0 20px;
+      min-height: 260px;
+    }
+
+    .fighter-pedestal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 220px;
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .stone-dais {
+      width: 160px;
+      height: 16px;
+      background: linear-gradient(180deg, #5a4b3e 0%, #2e261f 100%);
+      border: 2px solid #736151;
+      border-radius: 50%;
+      margin-top: -10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      z-index: -1;
+    }
+
+    .hp-shell {
+      width: 160px;
+      background: #110e0c;
+      border: 2px solid #5a4739;
+      border-radius: 6px;
+      padding: 3px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.8);
+    }
+
+    .hp-fill {
+      height: 14px;
+      background: linear-gradient(90deg, #22c55e, #15803d);
+      border-radius: 3px;
+      transition: width 0.4s ease-out, background 0.4s;
+      width: 100%;
+    }
+
+    .fighter-avatar {
+      width: 175px;
+      height: 185px;
+      position: relative;
+      filter: drop-shadow(0 12px 16px rgba(0,0,0,0.7));
+    }
+
+    .fighter-title-tag {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #e5d8cb;
+      margin-top: 8px;
+      text-align: center;
+      letter-spacing: 0.8px;
+      text-shadow: 0 2px 4px #000;
+    }
+
+    /* CENTER CLASH HUB */
+    .arena-center-hub {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .stadium-score-bug {
+      background: rgba(26, 20, 16, 0.9);
+      border: 2px solid #5a4739;
+      border-radius: 8px;
+      padding: 8px 18px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 5;
+    }
+
+    .score-round {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--torch-gold);
+      text-shadow: 0 0 8px rgba(255, 158, 27, 0.5);
+    }
+
+    /* CENTER IMPACT WORDING */
+    .arena-center-splash {
+      position: absolute;
+      top: -46px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.6);
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffd000;
+      letter-spacing: 2px;
+      text-shadow: 0 0 14px #ff4800, 0 0 24px #000, 0 2px 6px #000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 25;
+      white-space: nowrap;
+    }
+
+    .arena-center-splash.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.15);
+    }
+
+    /* PUNCH & IMPACT LAYERING */
+    .l-lunge { animation: colosseumLungeLeft 0.35s ease-in-out; }
+    .r-lunge { animation: colosseumLungeRight 0.35s ease-in-out; }
+    .damage-reaction { animation: stoneStagger 0.35s ease-in-out; }
+
+    @keyframes colosseumLungeLeft {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(120px) rotate(12deg) scale(1.05); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes colosseumLungeRight {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-120px) rotate(-12deg) scale(1.05); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes stoneStagger {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(14px); filter: brightness(2.2) drop-shadow(0 0 16px var(--byu-crimson)); }
+      50% { transform: translateX(-10px); }
+      75% { transform: translateX(6px); }
+      100% { transform: translateX(0); }
+    }
+
+    .dilemma-console {
+      background: var(--byu-white);
+      color: var(--byu-slate);
+      border-radius: 10px;
+      padding: 24px;
+      margin: 18px 20px 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 4;
+    }
+
+    .dilemma-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--byu-navy);
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .dilemma-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .dilemma-grid { grid-template-columns: 1fr; }
+    }
+
+    .dilemma-btn {
+      background: var(--byu-sand);
+      border: 1px solid var(--byu-sand-dark);
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      color: var(--byu-slate);
+      font-weight: 500;
+      line-height: 1.4;
+      transition: all 0.2s;
+    }
+
+    .dilemma-btn:hover {
+      background: #E8F1F9;
+      border-color: var(--byu-royal);
+      color: var(--byu-navy);
+      transform: translateY(-1px);
+    }
+
+    .arena-verdict-box {
+      background: var(--byu-white);
+      color: var(--byu-slate);
+      border-radius: 12px;
+      padding: 30px;
+      margin: 18px 20px 24px;
+      border-top: 6px solid var(--byu-royal);
+      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      text-align: left;
+    }
+
+    .verdict-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--byu-sand-dark);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .verdict-header-row h3 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--byu-navy);
+    }
+
+    .verdict-badge {
+      background: #E8F1F9;
+      color: var(--byu-royal);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .verdict-summary-list {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .verdict-summary-list li {
+      background: #FAF8F5;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border-left: 4px solid var(--byu-royal);
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    .verdict-summary-list li strong {
+      color: var(--byu-navy);
+    }
+
+    .verdict-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: var(--byu-sand);
+      color: var(--byu-slate);
+      border: 1px solid var(--byu-sand-dark);
+      padding: 10px 20px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: #eae2d8;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-strip">
+    <div class="brand-cluster">
+      <span class="brand-title">BYU</span>
+      <span class="brand-sub">IS Junior Core Competition</span>
+    </div>
+    <a href="index.html" class="home-portal">&larr; Return to Dashboard</a>
+  </header>
+
+  <main class="content-container">
+
+    <section class="module-section" id="partASection">
+      <div class="section-header">
+        <h1 class="section-title">Part A: Explore IS Careers</h1>
+        <p class="section-subtitle">
+          Browse all 8 core disciplines within the BYU Information Systems ecosystem. Use the side arrows to navigate between cards, view entry salaries and tools, and unlock the duel arena.
+        </p>
+      </div>
+
+      <div class="carousel-controls-bar">
+        <div class="filter-pills" id="filterPills">
+          <button class="pill-btn active" onclick="filterCarousel('all', this)">All Careers (8)</button>
+          <button class="pill-btn" onclick="filterCarousel('engineering', this)">Engineering & Cloud</button>
+          <button class="pill-btn" onclick="filterCarousel('strategy', this)">Strategy & Product</button>
+          <button class="pill-btn" onclick="filterCarousel('data', this)">Data & Analytics</button>
+          <button class="pill-btn" onclick="filterCarousel('security', this)">Security & Ops</button>
+        </div>
+      </div>
+
+      <div class="carousel-outer-wrapper">
+        <button class="side-scroll-btn side-scroll-left" id="scrollBtnLeft" onclick="scrollCarousel(-1)" aria-label="Scroll left">&#10094;</button>
+
+        <div class="carousel-viewport" id="carouselViewport">
+          <div class="carousel-track" id="carouselTrack"></div>
+        </div>
+
+        <button class="side-scroll-btn side-scroll-right" id="scrollBtnRight" onclick="scrollCarousel(1)" aria-label="Scroll right">&#10095;</button>
+      </div>
+
+      <div class="detail-panel" id="detailPanel"></div>
+      <p class="citation-foot">Sources: BYU Marriott IS Placement Records & Lightcast Industry Data (2025–2026)</p>
+    </section>
+
+    <div class="arena-gate" id="arenaGate">
+      <h3 id="gateHeading" style="color: var(--byu-navy); font-size: 1.25rem; margin-bottom: 4px;">Locked: Complete Your Exploration</h3>
+      <p id="gateSub" style="color: #64748B; font-size: 0.92rem;">Inspect all 8 career cards above to unlock the 10-round Matchup Arena.</p>
+      <div class="gate-meter">
+        <div class="gate-meter-fill" id="gateMeterFill"></div>
+      </div>
+      <button class="btn-enter-arena" id="btnEnterArena" style="display: none;" onclick="unlockStadium()">
+        Enter Matchup Arena &darr;
+      </button>
+    </div>
+
+    <section class="arena-standalone-guide" id="arenaGuideBlock" style="display: none;">
+      <span class="guide-badge">Colosseum Comparison Arena</span>
+      <h2>Torn Between Two Career Paths? Let Real Decisions Break the Tie.</h2>
+      <p>
+        Information Systems opens doors to distinct disciplines, and it is normal to like more than one.
+        The <strong>Matchup Arena</strong> lets you pick any two career paths you are considering and pits them head-to-head.
+        Rather than asking which career is "better," you will navigate 10 realistic, junior-friendly work scenarios.
+        Your choices reflect how you naturally like to think, build, and work with teams, revealing which path is genuinely the strongest fit for you before the STEM Fair.
+      </p>
+
+      <div class="guide-steps-row">
+        <div class="guide-step-box">
+          <div class="step-num">Step 1: Choose Your Matchup</div>
+          <div class="step-text">Select two distinct career paths you find appealing using the Gladiator 1 and Gladiator 2 dropdowns.</div>
+        </div>
+        <div class="guide-step-box">
+          <div class="step-num">Step 2: Answer Work Dilemmas</div>
+          <div class="step-text">Work through 10 scenarios. Each choice awards points and triggers attack animations for matching roles.</div>
+        </div>
+        <div class="guide-step-box">
+          <div class="step-num">Step 3: Unpack Your Alignment</div>
+          <div class="step-text">Receive a tailored breakdown detailing why that discipline fits your natural rhythm, along with an action item.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="arena-colosseum" id="arenaColosseum">
+      <div class="arena-skyline">
+        <div class="roster-controls-cluster">
+          <div class="roster-picker">
+            <label style="font-size: 0.8rem; text-transform: uppercase; color: #a89484; font-weight: 800;">Gladiator 1:</label>
+            <select class="roster-select" id="rosterCorner1"></select>
+          </div>
+          <div style="font-size: 1.4rem; font-weight: 900; color: var(--torch-gold); text-shadow: 0 0 10px rgba(255,158,27,0.7);">VS</div>
+          <div class="roster-picker">
+            <label style="font-size: 0.8rem; text-transform: uppercase; color: #a89484; font-weight: 800;">Gladiator 2:</label>
+            <select class="roster-select" id="rosterCorner2"></select>
+          </div>
+          <button class="btn-enter-arena" style="padding: 8px 18px; font-size: 0.85rem; margin-left: 8px;" onclick="resetMatch()">Rematch</button>
+        </div>
+      </div>
+
+      <div class="battle-canvas">
+        <div class="colosseum-arches"></div>
+        <div class="colosseum-torch torch-left"></div>
+        <div class="colosseum-torch torch-right"></div>
+        <div class="iron-chain chain-1"></div>
+        <div class="iron-chain chain-2"></div>
+        <div class="iron-chain chain-3"></div>
+
+        <div class="fighters-row">
+          <div class="fighter-pedestal" id="pedestalLeft">
+            <div class="hp-shell"><div class="hp-fill" id="hpFillLeft"></div></div>
+            <div class="fighter-avatar" id="avatarLeft"></div>
+            <div class="stone-dais"></div>
+            <div class="fighter-title-tag" id="titleLeft">Gladiator 1</div>
+          </div>
+
+          <div class="arena-center-hub">
+            <div class="arena-center-splash" id="arenaCenterSplash">HIT!</div>
+            <div class="stadium-score-bug">
+              <div class="score-round" id="roundIndicator">ROUND 1 / 10</div>
+              <span style="font-size: 0.72rem; color: #a89484; text-transform: uppercase; letter-spacing: 1px;">Colosseum Trial</span>
+            </div>
+          </div>
+
+          <div class="fighter-pedestal" id="pedestalRight">
+            <div class="hp-shell"><div class="hp-fill" id="hpFillRight"></div></div>
+            <div class="fighter-avatar" id="avatarRight"></div>
+            <div class="stone-dais"></div>
+            <div class="fighter-title-tag" id="titleRight">Gladiator 2</div>
+          </div>
+        </div>
+
+        <div class="dilemma-console" id="dilemmaConsole">
+          <div class="dilemma-title" id="dilemmaTitle">Loading scenario...</div>
+          <div class="dilemma-grid" id="dilemmaGrid"></div>
+        </div>
+
+        <div class="arena-verdict-box" id="verdictBox">
+          <div class="verdict-header-row">
+            <div>
+              <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--byu-royal);">Duel Outcome</span>
+              <h3 id="verdictHeadline">Alignment Determined</h3>
+            </div>
+            <span class="verdict-badge" id="verdictBadge">Validated Fit</span>
+          </div>
+
+          <p id="verdictIntro" style="font-size: 0.98rem; color: #334155; margin-bottom: 16px;"></p>
+
+          <ul class="verdict-summary-list">
+            <li id="whyPoint1"><strong>Why this fits you:</strong> Analyzing breakdown...</li>
+            <li id="whyPoint2"><strong>Your optimal rhythm:</strong> Analyzing work style...</li>
+            <li id="whyPoint3"><strong>STEM Fair action item:</strong> Loading action item...</li>
+          </ul>
+
+          <div class="verdict-actions">
+            <button class="btn-secondary" onclick="resetMatch()">Test Another Matchup</button>
+            <button class="btn-enter-arena" id="btnDeepDive" onclick="deepDiveWinner()">
+              Review Role Details &uarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // --- 1. DATA REPOSITORY: 8 CORE IS PATHS WITH DETAILED GLADIATOR SVGS ---
+    const careerTracks = [
+      {
+        id: "swe",
+        title: "Software / Application Developer",
+        categoryGroup: "engineering",
+        categoryBadge: "Engineering",
+        themeClass: "card-theme-swe",
+        badgeClass: "badge-swe",
+        accentColor: "#0062B8",
+        fighterName: "The Code Titan",
+        snippet: "Constructs scalable web services, full-stack microservices, and front-end client apps.",
+        dayToDay: "Designs scalable microservices, builds full-stack web applications, resolves production tickets, attends daily standups, and reviews pull requests within an Agile/Scrum cycle.",
+        skills: ["C# / .NET Core", "TypeScript & React", "PostgreSQL / DynamoDB", "Docker & Kubernetes", "Git Workflow"],
+        internExpectations: "Demonstrated grasp of object-oriented principles, relational schema design, RESTful API consumption, and clean error handling during live whiteboarding.",
+        salary: "$78,000 - $115,000 Starting Base (BYU Marriott Avg: ~$88,500). Senior & Principal tracks exceed $165,000+.",
+        standout: "Maintains deployed side projects on GitHub, commits clean code, learns framework updates quickly, and debugs methodically under pressure.",
+        summaryWhy: "You lean into direct building, hands-on logic, and solving concrete code errors rather than staying in theoretical discussions.",
+        summaryRhythm: "Dedicated blocks of uninterrupted building time where you can point to working software at the end of the day.",
+        summaryAction: "Bring deployed GitHub repo links to the STEM Fair and practice explaining object-oriented design and algorithm complexity (Big-O).",
+        deepDive: {
+          expandedOverview: "Software developers in the BYU IS ecosystem construct and maintain scalable applications. Unlike pure computer science theory, IS developers focus on business-aligned web services, database architecture, intuitive interfaces, and enterprise cloud integration.",
+          byuStats: {
+            bsisAvg: "$74,800",
+            mismAvg: "$91,800",
+            conversionRate: "37% BSIS / 59% MISM",
+            placementRate: "92% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Daily standup meeting (15 mins) to review sprint Jira tickets and unblock teammates." },
+            { time: "9:30 AM", desc: "Core focus block: Developing a new REST API endpoint in C#/.NET and writing unit tests." },
+            { time: "1:00 PM", desc: "GitHub Pull Request reviews: Critiquing teammate code for security and schema efficiency." },
+            { time: "2:30 PM", desc: "Architecture sync with Systems Analyst to clarify database schema requirements for next sprint." },
+            { time: "4:00 PM", desc: "CI/CD container deployment debugging on Docker / AWS test environments." }
+          ],
+          topEmployers: ["Lucid Software", "Amazon / AWS", "BambooHR", "Qualtrics", "Apple", "Adobe", "Pattern"],
+          topLocations: ["Salt Lake City / Lehi (Silicon Slopes), UT", "Seattle, WA", "Bay Area, CA", "Dallas / Austin, TX"],
+          pros: [
+            "High starting compensation with fast progression to Senior Engineer ($150k+).",
+            "Clear measure of daily productivity (shipped features, passing test suites).",
+            "High demand and remote/hybrid work flexibility."
+          ],
+          cons: [
+            "Occasional on-call rotation schedules for unexpected production outages.",
+            "Fast-moving technical stacks require continuous learning outside work."
+          ],
+          outlook: "Strong 5-year growth. As AI-assisted development accelerates boilerplate coding, demand is shifting toward developers who understand complex architecture, system integration, and security."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="55,55 120,55 130,145 45,145" fill="#1b2533" stroke="#0062B8" stroke-width="2.5"/>
+            <path d="M 68 70 Q 88 85 108 70" stroke="#00f0ff" stroke-width="2" fill="none"/>
+            <path d="M 72 95 Q 88 110 104 95" stroke="#00f0ff" stroke-width="2" fill="none"/>
+            <line x1="88" y1="60" x2="88" y2="135" stroke="#0062B8" stroke-width="2.5"/>
+            <path d="M 65 30 Q 88 10 110 30 L 115 50 L 60 50 Z" fill="#2d3748" stroke="#0062B8" stroke-width="2"/>
+            <path d="M 60 18 Q 88 0 115 18" stroke="#00f0ff" stroke-width="5" fill="none"/>
+            <rect x="70" y="36" width="35" height="7" rx="2" fill="#00f0ff"/>
+            <polygon points="145,20 152,130 138,130" fill="#e2e8f0" stroke="#00f0ff" stroke-width="2"/>
+            <rect x="135" y="130" width="20" height="8" rx="2" fill="#002E5D"/>
+            <rect x="142" y="138" width="6" height="24" rx="2" fill="#475569"/>
+            <circle cx="145" cy="164" r="6" fill="#00f0ff"/>
+            <text x="141" y="80" font-size="9" font-weight="900" fill="#0062B8" font-family="monospace">&lt;&gt;</text>
+            <rect x="15" y="50" width="34" height="95" rx="5" fill="#002E5D" stroke="#00f0ff" stroke-width="2.5"/>
+            <circle cx="32" cy="98" r="10" fill="#0062B8" stroke="#ffffff" stroke-width="1.5"/>
+            <text x="25" y="102" font-size="10" font-weight="900" fill="#fff" font-family="monospace">01</text>
+          </svg>
+        `
+      },
+      {
+        id: "ba",
+        title: "Business / Systems Analyst",
+        categoryGroup: "strategy",
+        categoryBadge: "Strategy",
+        themeClass: "card-theme-ba",
+        badgeClass: "badge-ba",
+        accentColor: "#C28B1E",
+        fighterName: "The Architecture Maestro",
+        snippet: "Bridges business leadership and technical delivery teams to formulate functional systems.",
+        dayToDay: "Serves as the vital translator between business leaders and technical engineering teams. Gathers requirements, models data workflows, builds sprint backlogs in Jira, and coordinates user acceptance testing.",
+        skills: ["Relational SQL", "Lucidchart / BPMN Modeling", "Jira & Confluence", "Tableau Analytics", "Functional Specification"],
+        internExpectations: "Ability to dissect vague executive statements into functional edge cases, query databases to substantiate claims, and facilitate structured backlog refinement meetings.",
+        salary: "$70,000 - $94,000 Starting Base. Senior Consulting and Director of Technical Product tracks reach $155,000+.",
+        standout: "Demonstrates exceptional communication polish, asks probing questions that expose edge-case logic early, and writes documentation that engineers actually enjoy reading.",
+        summaryWhy: "You excel at listening, clarifying goals, and ensuring the team builds the right solution before writing lines of code.",
+        summaryRhythm: "Cross-functional collaboration, leading whiteboarding discussions, and translating executive strategy into technical roadmaps.",
+        summaryAction: "Highlight process diagrams and user journey specs on your resume, and prepare examples of times you aligned disagreeing teammates.",
+        deepDive: {
+          expandedOverview: "Business and Systems Analysts are the core problem decoders in the business school. They ensure expensive developer hours aren't wasted on software nobody needs. They map operational workflows, model data schemas, and validate acceptance criteria with users.",
+          byuStats: {
+            bsisAvg: "$73,200",
+            mismAvg: "$89,500",
+            conversionRate: "35% BSIS / 52% MISM",
+            placementRate: "94% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Sprint backlog grooming with software engineers to clarify requirement ambiguities." },
+            { time: "10:30 AM", desc: "Stakeholder workshop with Finance & Operations heads to map order fulfillment bottlenecks." },
+            { time: "1:00 PM", desc: "SQL validation queries to verify actual transaction patterns against user-reported issues." },
+            { time: "2:30 PM", desc: "Drafting BPMN workflow diagrams and acceptance test criteria in Jira." },
+            { time: "4:00 PM", desc: "User Acceptance Testing (UAT) walk-through with business end-users." }
+          ],
+          topEmployers: ["Deloitte", "Goldman Sachs", "PwC", "Credera", "Southwest Airlines", "ExxonMobil", "The Church of Jesus Christ of Latter-day Saints"],
+          topLocations: ["Salt Lake City, UT", "Dallas / Fort Worth, TX", "Denver, CO", "Phoenix, AZ"],
+          pros: [
+            "High exposure to C-suite executives and business leadership early in career.",
+            "Fast runway into Product Management or Management Consulting.",
+            "Ideal balance of interpersonal communication and technical database modeling."
+          ],
+          cons: [
+            "High meeting density can occasionally leave limited time for independent desk work.",
+            "Navigating conflicting stakeholder demands can be politically sensitive."
+          ],
+          outlook: "Continuous growth. Organizations upgrading legacy tech stacks need analysts who can bridge technical developers with corporate leadership."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 135,150 40,150" fill="#2c241e" stroke="#C28B1E" stroke-width="2.5"/>
+            <path d="M 50 55 L 130 145" stroke="#C28B1E" stroke-width="12" stroke-linecap="round"/>
+            <circle cx="88" cy="36" r="22" fill="#F4EFEA"/>
+            <path d="M 68 28 Q 88 16 108 28" stroke="#C28B1E" stroke-width="4" fill="none"/>
+            <circle cx="88" cy="22" r="3" fill="#ffb700"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#C28B1E" stroke-width="3.5"/>
+            <polygon points="145,5 152,25 138,25" fill="#e2e8f0" stroke="#C28B1E" stroke-width="1.5"/>
+            <rect x="18" y="60" width="35" height="60" rx="3" fill="#002E5D" stroke="#ffb700" stroke-width="2"/>
+            <line x1="24" y1="72" x2="46" y2="72" stroke="#FFFFFF" stroke-width="2"/>
+            <line x1="24" y1="84" x2="42" y2="84" stroke="#ffb700" stroke-width="2"/>
+            <line x1="24" y1="96" x2="48" y2="96" stroke="#FFFFFF" stroke-width="2"/>
+            <circle cx="145" cy="115" r="7" fill="#C28B1E"/>
+            <circle cx="35" cy="115" r="7" fill="#C28B1E"/>
+          </svg>
+        `
+      },
+      {
+        id: "data",
+        title: "Data Analyst",
+        categoryGroup: "data",
+        categoryBadge: "Data & BI",
+        themeClass: "card-theme-data",
+        badgeClass: "badge-data",
+        accentColor: "#10B981",
+        fighterName: "The Insight Alchemist",
+        snippet: "Engineers reliable semantic data models, transforms raw pipelines, and delivers actionable BI insights.",
+        dayToDay: "Builds clean data transformation pipelines using dbt, maintains Snowflake/BigQuery warehouses, provisions executive semantic layers, and analyzes anomalies in operational KPIs.",
+        skills: ["Advanced SQL (Window functions)", "Python (Pandas, NumPy)", "Snowflake / BigQuery", "dbt Modeling", "Power BI / Tableau"],
+        internExpectations: "Fluency writing multi-join queries with CTEs, understanding normalization vs. dimensional star-schemas, and building responsive dashboards for end users.",
+        salary: "$72,000 - $98,000 Starting Base. Data Engineering and Head of Analytics paths scale to $150,000+.",
+        standout: "Transforms messy data into actionable stories, spots misleading trends, and demonstrates disciplined data modeling hygiene.",
+        summaryWhy: "You prefer empirical facts over opinions and enjoy uncovering patterns in data to guide business decisions.",
+        summaryRhythm: "Exploratory data analysis, writing clean SQL queries, and designing visual dashboards that make decisions straightforward.",
+        summaryAction: "Bring portfolio examples of dashboards that answer specific business questions and demonstrate comfort with multi-table joins.",
+        deepDive: {
+          expandedOverview: "Data Analysts and Analytics Engineers turn messy raw databases into clean decision platforms. In BYU IS, this path marries business acumen with robust data warehouse modeling (star schemas, dbt transformations, and executive visualization).",
+          byuStats: {
+            bsisAvg: "$73,900",
+            mismAvg: "$90,400",
+            conversionRate: "34% BSIS / 48% MISM",
+            placementRate: "91% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Auditing nightly automated dbt data transformation runs in Snowflake." },
+            { time: "10:00 AM", desc: "Writing complex window functions in SQL to calculate 30-day user retention cohorts." },
+            { time: "1:00 PM", desc: "Building an executive dashboard in Power BI / Tableau for VP of Growth." },
+            { time: "3:00 PM", desc: "Investigating a metric discrepancy between web analytics and backend billing records." },
+            { time: "4:30 PM", desc: "Documenting metric definitions in the enterprise semantic data dictionary." }
+          ],
+          topEmployers: ["Domo", "Palantir", "Snowflake", "Overstock / Beyond", "Amazon", "KPMG", "Intermountain Health"],
+          topLocations: ["Lehi / Draper, UT", "Seattle, WA", "San Francisco, CA", "Chicago, IL"],
+          pros: [
+            "Direct impact on major strategic business decisions.",
+            "Valuable, transferable skill set spanning every modern industry.",
+            "High opportunity to work with modern cloud tech (Snowflake, BigQuery, dbt)."
+          ],
+          cons: [
+            "A large percentage of time is spent cleaning and wrangling dirty, unstandardized data.",
+            "Can face pressure when different executives use conflicting metric definitions."
+          ],
+          outlook: "Strong demand. As companies collect terabytes of operational data, analytics engineers who can transform raw data into reliable business models remain essential."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="55,55 120,55 130,148 45,148" fill="#064e3b" stroke="#10B981" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <circle cx="95" cy="34" r="8" fill="none" stroke="#10B981" stroke-width="2.5"/>
+            <line x1="103" y1="34" x2="110" y2="34" stroke="#10B981" stroke-width="2"/>
+            <circle cx="30" cy="85" r="20" fill="#022c22" stroke="#10B981" stroke-width="2.5"/>
+            <rect x="20" y="86" width="4" height="10" fill="#10B981"/>
+            <rect x="27" y="80" width="4" height="16" fill="#10B981"/>
+            <rect x="34" y="74" width="4" height="22" fill="#10B981"/>
+            <line x1="145" y1="20" x2="145" y2="165" stroke="#047857" stroke-width="4"/>
+            <polygon points="145,10 158,25 145,40 132,25" fill="#10B981" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="145" cy="25" r="4" fill="#fff"/>
+          </svg>
+        `
+      },
+      {
+        id: "sec",
+        title: "Cybersecurity Analyst",
+        categoryGroup: "security",
+        categoryBadge: "Security",
+        themeClass: "card-theme-sec",
+        badgeClass: "badge-sec",
+        accentColor: "#9E1B32",
+        fighterName: "The Cyber Sentinel",
+        snippet: "Protects institutional assets through zero-trust monitoring, threat audits, and security controls.",
+        dayToDay: "Monitors SIEM alert feeds, analyzes authentication logs, implements zero-trust privileges, conducts tabletop threat exercises, and verifies compliance against NIST/CIS frameworks.",
+        skills: ["Splunk / Microsoft Sentinel", "Wireshark Packet Analysis", "Linux Bash / Scripting", "Identity & Access (IAM)", "Vulnerability Scanning"],
+        internExpectations: "Firm understanding of the OSI model, TCP 3-way handshake mechanics, common OWASP top 10 vectors, and foundational cryptography concepts.",
+        salary: "$75,000 - $105,000 Starting Base. Incident Commander and Chief Information Security Officer (CISO) paths reach $175,000+.",
+        standout: "Active participant in Collegiate Cyber Defense Competitions (CCDC), holds foundational certifications (Security+, CySA+), and maintains a home lab network.",
+        summaryWhy: "You naturally look for risks, vulnerabilities, and worst-case scenarios to keep systems protected before trouble strikes.",
+        summaryRhythm: "Deep analytical investigation, inspecting log telemetry, and engineering defenses to protect corporate systems.",
+        summaryAction: "Highlight hands-on lab experiments, security certifications (Security+), and familiarity with network traffic fundamentals.",
+        deepDive: {
+          expandedOverview: "Cybersecurity Analysts protect corporate networks and confidential data. With BYU IS's strong focus on enterprise infrastructure and security labs, graduates step into frontline roles in incident response, threat detection, identity governance, and cyber risk consulting.",
+          byuStats: {
+            bsisAvg: "$76,100",
+            mismAvg: "$93,200",
+            conversionRate: "38% BSIS / 61% MISM",
+            placementRate: "93% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "8:30 AM", desc: "Triage overnight automated SIEM alert queues in Splunk / Sentinel." },
+            { time: "10:00 AM", desc: "Investigating a flagged anomalous credential login from an unapproved IP subnet." },
+            { time: "1:00 PM", desc: "Running Nessus vulnerability scan across staging server subnets." },
+            { time: "2:30 PM", desc: "Meeting with engineering team to enforce zero-trust identity policies on new APIs." },
+            { time: "4:00 PM", desc: "Conducting an internal simulated phishing campaign analysis." }
+          ],
+          topEmployers: ["Deloitte (Cyber Risk)", "PwC", "EY", "Proofpoint", "DigiCert", "Northrop Grumman", "Federal Agencies"],
+          topLocations: ["Salt Lake City, UT", "Washington D.C. / Northern VA", "Dallas, TX", "Denver, CO"],
+          pros: [
+            "Near zero unemployment rate across the industry.",
+            "High job security and critical organizational importance.",
+            "Continuous hands-on problem-solving against real-world adversaries."
+          ],
+          cons: [
+            "High-stakes stress during active incident breaches.",
+            "Compliance audits can involve extensive administrative documentation."
+          ],
+          outlook: "Skyrocketing demand. Stricter privacy regulations and expanding AI attack vectors make certified cybersecurity analysts an urgent corporate priority."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,50 125,50 135,148 40,148" fill="#1f1818" stroke="#9E1B32" stroke-width="3"/>
+            <path d="M 60 30 Q 88 15 115 30 L 120 55 L 55 55 Z" fill="#2d1b1b" stroke="#9E1B32" stroke-width="2"/>
+            <rect x="68" y="36" width="40" height="8" rx="2" fill="#ef4444"/>
+            <polygon points="12,50 42,30 42,120 12,140" fill="#450a0a" stroke="#9E1B32" stroke-width="2.5"/>
+            <line x1="27" y1="55" x2="27" y2="115" stroke="#ef4444" stroke-width="2"/>
+            <line x1="16" y1="85" x2="38" y2="85" stroke="#ef4444" stroke-width="2"/>
+            <line x1="145" y1="40" x2="145" y2="165" stroke="#52525b" stroke-width="5"/>
+            <polygon points="135,35 155,35 160,55 130,55" fill="#9E1B32" stroke="#ef4444" stroke-width="1.5"/>
+          </svg>
+        `
+      },
+      {
+        id: "pm",
+        title: "IT Project Manager",
+        categoryGroup: "strategy",
+        categoryBadge: "Leadership",
+        themeClass: "card-theme-pm",
+        badgeClass: "badge-pm",
+        accentColor: "#002E5D",
+        fighterName: "The Master Tactician",
+        snippet: "Coordinates team timelines, eliminates blockers for developers, and ensures milestone delivery.",
+        dayToDay: "Coordinates team timelines, removes roadblocks for developers and analysts, manages project budgets, tracks deliverables, and keeps executive sponsors updated on progress.",
+        skills: ["Agile / Scrum Frameworks", "Timeline Tools (Asana/Jira)", "Risk Management", "Budget Tracking", "Cross-Team Communication"],
+        internExpectations: "Organized note-taking, running focused team meetings, breaking down big projects into smaller weekly tasks, and follow-through on deadlines.",
+        salary: "$70,000 - $92,000 Starting Base. Senior Program and Portfolio Managers scale to $145k+.",
+        standout: "Extremely reliable follow-through, builds high-trust team environments, and anticipates project blockers days before they become emergencies.",
+        summaryWhy: "You naturally organize chaos, keep groups focused on deliverables, and ensure projects cross the finish line smoothly.",
+        summaryRhythm: "Sprint facilitation, coordinating teammates, removing project roadblocks, and tracking progress milestones.",
+        summaryAction: "Emphasize past leadership roles, Agile/Scrum coursework, and examples of leading group capstones on schedule.",
+        deepDive: {
+          expandedOverview: "IT Project Managers ensure complex technology initiatives deliver on time and on budget. They balance scope, budget, and schedules, keeping technical engineers, UX designers, and corporate sponsors rowing in the same direction.",
+          byuStats: {
+            bsisAvg: "$71,500",
+            mismAvg: "$88,900",
+            conversionRate: "32% BSIS / 45% MISM",
+            placementRate: "90% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Leading morning standup across cross-functional engineering and design teams." },
+            { time: "10:00 AM", desc: "Reviewing sprint burndown charts in Jira and resolving milestone bottlenecks." },
+            { time: "1:00 PM", desc: "Budget and resourcing sync with department directors." },
+            { time: "2:30 PM", desc: "Risk assessment meeting to plan contingencies for delayed vendor deliveries." },
+            { time: "4:00 PM", desc: "Drafting bi-weekly status summary for executive sponsors." }
+          ],
+          topEmployers: ["Epic Systems", "ExxonMobil", "General Motors", "Fidelity Investments", "Tech Consultancies", "Zions Bancorporation"],
+          topLocations: ["Salt Lake City, UT", "Dallas, TX", "Madison, WI", "Atlanta, GA"],
+          pros: [
+            "Clear career path into Director of Program Management or Chief of Staff.",
+            "High variety of daily work spanning multiple departments.",
+            "Develops valuable leadership, negotiation, and organizational skills."
+          ],
+          cons: [
+            "Carries accountability for project deadlines without direct managerial authority over engineers.",
+            "High communication overhead and status reporting requirements."
+          ],
+          outlook: "Steady demand. Large corporations investing in digital transformations require disciplined project managers to coordinate complex initiatives."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 132,150 42,150" fill="#0f172a" stroke="#002E5D" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 64 30 Q 88 12 112 30 L 115 48 L 60 48 Z" fill="#1e293b" stroke="#C28B1E" stroke-width="2"/>
+            <line x1="150" y1="10" x2="150" y2="165" stroke="#C28B1E" stroke-width="4"/>
+            <rect x="120" y="20" width="30" height="24" fill="#002E5D" stroke="#C28B1E" stroke-width="1.5"/>
+            <text x="126" y="37" font-size="12" font-weight="900" fill="#fff">SP</text>
+            <circle cx="32" cy="95" r="22" fill="#1e293b" stroke="#C28B1E" stroke-width="2.5"/>
+            <line x1="20" y1="90" x2="38" y2="90" stroke="#38bdf8" stroke-width="2"/>
+            <line x1="20" y1="96" x2="44" y2="96" stroke="#22c55e" stroke-width="2"/>
+            <line x1="20" y1="102" x2="32" y2="102" stroke="#f59e0b" stroke-width="2"/>
+          </svg>
+        `
+      },
+      {
+        id: "uxpm",
+        title: "UX Designer / Product Manager",
+        categoryGroup: "strategy",
+        categoryBadge: "Design & Product",
+        themeClass: "card-theme-uxpm",
+        badgeClass: "badge-uxpm",
+        accentColor: "#8B5CF6",
+        fighterName: "The Experience Visionary",
+        snippet: "Shapes interactive interfaces, runs usability research, and directs product roadmaps.",
+        dayToDay: "Conducts user interviews, designs interactive wireframes and prototypes in Figma, gathers customer feedback, and prioritizes the product feature roadmap.",
+        skills: ["Figma / Design Systems", "User Research & Usability", "Product Roadmapping", "Prototyping", "A/B Testing Basics"],
+        internExpectations: "Empathy for the user experience, building interactive Figma wireframes, and using feedback to justify design choices.",
+        salary: "$74,000 - $100,000 Starting Base. VP of Product and Design Lead tracks reach $160k+.",
+        standout: "Presents a strong portfolio demonstrating how user feedback directly reshaped an app design into something clean and easy to use.",
+        summaryWhy: "You care deeply about how technology feels to real people and prioritize intuitive, friction-free design.",
+        summaryRhythm: "Wireframing screens, interviewing users, and collaborating with developers on how features should look and behave.",
+        summaryAction: "Bring a portfolio link or Figma prototype showing before-and-after designs driven by user feedback.",
+        deepDive: {
+          expandedOverview: "UX Designers and Technical Product Managers represent the voice of the customer. They transform complicated technical capabilities into intuitive digital products that users love, balancing business viability, technical feasibility, and design elegance.",
+          byuStats: {
+            bsisAvg: "$75,400",
+            mismAvg: "$92,100",
+            conversionRate: "33% BSIS / 50% MISM",
+            placementRate: "90% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Reviewing user session recordings and heatmap analytics for onboarding drop-offs." },
+            { time: "10:30 AM", desc: "Conducting a 45-minute live user interview and prototype testing session." },
+            { time: "1:00 PM", desc: "Building high-fidelity interactive wireframes in Figma." },
+            { time: "3:00 PM", desc: "Design critique and feasibility review with front-end developers." },
+            { time: "4:30 PM", desc: "Updating product feature backlog and prioritization scoring." }
+          ],
+          topEmployers: ["Qualtrics", "Adobe", "Lucid Software", "BambooHR", "Microsoft", "Pattern", "Consumer Tech Startups"],
+          topLocations: ["Salt Lake City / Lehi, UT", "San Francisco / Bay Area, CA", "Seattle, WA", "New York, NY"],
+          pros: [
+            "Highly creative, visual, and rewarding work seeing users interact with your designs.",
+            "Central role steering product feature roadmaps and company vision.",
+            "Strong career progression to VP of Product or Chief Product Officer."
+          ],
+          cons: [
+            "Requires balancing subjective design feedback from multiple conflicting stakeholders.",
+            "Need to defend design decisions against purely engineering-led shortcuts."
+          ],
+          outlook: "Growing demand. As software products proliferate, user experience and intuitive design are key competitive differentiators."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 130,150 42,150" fill="#2e1065" stroke="#8B5CF6" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 68 28 Q 88 18 108 28" stroke="#ec4899" stroke-width="3.5" fill="none"/>
+            <circle cx="88" cy="23" r="4" fill="#8B5CF6"/>
+            <circle cx="32" cy="90" r="22" fill="#1e1b4b" stroke="#8B5CF6" stroke-width="2.5"/>
+            <circle cx="25" cy="84" r="4" fill="#ec4899"/>
+            <circle cx="38" cy="84" r="4" fill="#a855f7"/>
+            <circle cx="32" cy="98" r="4" fill="#06b6d4"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#ec4899" stroke-width="3.5"/>
+            <polygon points="145,5 154,25 136,25" fill="#8B5CF6" stroke="#fff" stroke-width="1.5"/>
+          </svg>
+        `
+      },
+      {
+        id: "erp",
+        title: "ERP / Systems Consultant (SAP, Salesforce)",
+        categoryGroup: "strategy",
+        categoryBadge: "Enterprise Tech",
+        themeClass: "card-theme-erp",
+        badgeClass: "badge-erp",
+        accentColor: "#F59E0B",
+        fighterName: "The Enterprise Integrator",
+        snippet: "Customizes major enterprise platforms (Salesforce, SAP) to power corporate revenue and supply chains.",
+        dayToDay: "Configures large enterprise platforms (like SAP, Salesforce, or Workday) to match corporate business models, integrates data flows, and guides client implementations.",
+        skills: ["Salesforce / SAP Basics", "Business Process Mapping", "Relational Data Modeling", "Client Consulting", "Integration Workflows"],
+        internExpectations: "Understanding core business operations (sales, accounting, inventory), learning enterprise platforms quickly, and client communication skills.",
+        salary: "$75,000 - $98,000 Starting Base (often includes performance bonuses). Senior Consulting Managers exceed $165k+.",
+        standout: "Combines business acumen with technical configurations, and can clearly walk non-technical executives through solutions.",
+        summaryWhy: "You enjoy tailoring enterprise tools to solve practical business problems rather than reinventing the wheel with custom code.",
+        summaryRhythm: "Client consulting meetings, setting up platform automations, and configuring enterprise database workflows.",
+        summaryAction: "Complete trailhead badges or beginner enterprise certs and highlight consulting project experience.",
+        deepDive: {
+          expandedOverview: "Enterprise Systems Consultants customize multi-million dollar platforms like Salesforce, SAP, and Workday for global companies. They configure business rules, security permissions, and data pipelines to support enterprise sales, finance, and supply chains.",
+          byuStats: {
+            bsisAvg: "$76,500",
+            mismAvg: "$94,200",
+            conversionRate: "42% BSIS / 62% MISM",
+            placementRate: "95% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "9:00 AM", desc: "Client daily check-in call to review enterprise integration milestones." },
+            { time: "10:30 AM", desc: "Configuring custom Salesforce flows, Apex logic, or SAP business objects." },
+            { time: "1:00 PM", desc: "Validating automated data syncs between ERP platform and corporate databases." },
+            { time: "2:30 PM", desc: "Leading hands-on client user training session on new system processes." },
+            { time: "4:00 PM", desc: "Documenting custom configuration specifications for client support teams." }
+          ],
+          topEmployers: ["Accenture", "Deloitte Consulting", "Credera", "PwC", "Connor Group", "Salesforce", "Slalom"],
+          topLocations: ["Dallas / Houston, TX", "Salt Lake City, UT", "Chicago, IL", "Denver, CO"],
+          pros: [
+            "Rapid career advancement, signing bonuses, and strong consulting compensation.",
+            "Direct experience with systems powering Fortune 500 enterprises.",
+            "High demand for certified platform consultants."
+          ],
+          cons: [
+            "Client consulting can require travel and fluctuating project deadlines.",
+            "Platform-specific workflows can feel constrained compared to custom coding."
+          ],
+          outlook: "Strong demand. As global corporations migrate their core business operations to the cloud, certified Salesforce, SAP, and Workday experts command premium rates."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <rect x="50" y="55" width="75" height="95" rx="4" fill="#451a03" stroke="#F59E0B" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 64 30 Q 88 15 112 30 L 116 48 L 60 48 Z" fill="#78350f" stroke="#F59E0B" stroke-width="2"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#b45309" stroke-width="4"/>
+            <circle cx="145" cy="30" r="14" fill="#F59E0B" stroke="#fff" stroke-width="2"/>
+            <circle cx="145" cy="30" r="5" fill="#78350f"/>
+            <rect x="15" y="65" width="35" height="60" rx="4" fill="#083344" stroke="#F59E0B" stroke-width="2"/>
+            <path d="M 22 95 Q 32 85 42 95" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <circle cx="32" cy="108" r="4" fill="#F59E0B"/>
+          </svg>
+        `
+      },
+      {
+        id: "cloud",
+        title: "Cloud / Infrastructure Engineer",
+        categoryGroup: "engineering",
+        categoryBadge: "Cloud & Ops",
+        themeClass: "card-theme-cloud",
+        badgeClass: "badge-cloud",
+        accentColor: "#06B6D4",
+        fighterName: "The Cloud Architect",
+        snippet: "Automates server environments, container orchestration, and cloud infrastructure pipelines.",
+        dayToDay: "Configures cloud infrastructure (AWS/Azure), manages containerized environments, automates deployments, ensures high availability, and monitors server performance.",
+        skills: ["AWS / Azure Basics", "Linux Administration", "Infrastructure as Code", "Networking Fundamentals", "CI/CD Deployment Pipelines"],
+        internExpectations: "Understanding virtual machines, cloud storage buckets, basic Linux command-line navigation, and foundational networking (DNS, subnets).",
+        salary: "$80,000 - $115,000 Starting Base. DevOps Leads and Principal Cloud Architects scale to $170k+.",
+        standout: "Has automated personal server deployments, understands cost/performance trade-offs in cloud setups, and loves building automated systems.",
+        summaryWhy: "You care about the backbone of technology, wanting to make sure networks, servers, and cloud environments run reliably.",
+        summaryRhythm: "Scripting infrastructure configurations, automating build pipelines, and tuning cloud hosting performance.",
+        summaryAction: "Showcase cloud-hosted apps or AWS Cloud Practitioner certification, and speak comfortably about Linux fundamentals.",
+        deepDive: {
+          expandedOverview: "Cloud and Infrastructure Engineers build the automated hosting environments where modern software lives. They automate provisioning via Terraform, manage Kubernetes containers, optimize cloud computing costs, and ensure zero-downtime deployments.",
+          byuStats: {
+            bsisAvg: "$78,200",
+            mismAvg: "$94,800",
+            conversionRate: "40% BSIS / 58% MISM",
+            placementRate: "94% (3 mos. post-grad)"
+          },
+          schedule: [
+            { time: "8:30 AM", desc: "Checking Datadog / CloudWatch monitoring telemetry for server latency spikes." },
+            { time: "9:30 AM", desc: "Writing Terraform scripts to provision a staging VPC and Redis cache on AWS." },
+            { time: "1:00 PM", desc: "Debugging a broken GitHub Actions CI/CD deployment pipeline." },
+            { time: "2:30 PM", desc: "Tuning Kubernetes container pod autoscaling parameters." },
+            { time: "4:00 PM", desc: "Conducting cloud infrastructure cost optimization and security audits." }
+          ],
+          topEmployers: ["Amazon Web Services (AWS)", "Microsoft Azure", "Pattern", "Qualtrics", "Health Catalyst", "Tech Startups", "Defense Contractors"],
+          topLocations: ["Seattle, WA", "Salt Lake City, UT", "Austin, TX", "Bay Area, CA"],
+          pros: [
+            "Top-tier starting compensation with significant market demand.",
+            "High autonomy automating repetitive operations.",
+            "Foundation of modern tech engineering—every modern software team requires cloud expertise."
+          ],
+          cons: [
+            "Steep initial learning curve mastering cloud networking and Linux tooling.",
+            "Responsible for resolving major unexpected service outages."
+          ],
+          outlook: "Rapidly expanding. Multi-cloud architectures, Kubernetes containerization, and enterprise cloud migrations ensure long-term demand for skilled infrastructure engineers."
+        },
+        svg: `
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 130,150 42,150" fill="#082f49" stroke="#06B6D4" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#1B242C"/>
+            <path d="M 64 32 Q 88 18 112 32" stroke="#38bdf8" stroke-width="4" fill="none"/>
+            <line x1="145" y1="35" x2="145" y2="165" stroke="#0284c7" stroke-width="4"/>
+            <path d="M 132 35 L 132 20 M 145 35 L 145 10 M 158 35 L 158 20" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="90" r="24" fill="#0c4a6e" stroke="#38bdf8" stroke-width="2.5"/>
+            <polygon points="32,74 44,81 44,95 32,102 20,95 20,81" fill="none" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="32" cy="88" r="3" fill="#38bdf8"/>
+          </svg>
+        `
+      }
+    ];
+
+    // --- 2. 10 GENERAL SITUATIONAL SCENARIOS ---
+    const arenaScenarios = [
+      {
+        dilemma: "Round 1: When your group is assigned a new semester project, what is the very first thing you naturally want to do?",
+        choices: [
+          { text: "Jump into code right away to build a working prototype and verify that our idea works.", alignsWith: "swe" },
+          { text: "Review the grading requirements, list key user stories, and define the core problem we are solving.", alignsWith: "ba" },
+          { text: "Sketch out interface mockups in Figma so the team can visualize what the app should feel like.", alignsWith: "uxpm" },
+          { text: "Build a project board, set up milestone deadlines, and assign clear responsibilities to everyone.", alignsWith: "pm" }
+        ]
+      },
+      {
+        dilemma: "Round 2: What type of problem sounds most rewarding to solve during your work day?",
+        choices: [
+          { text: "Tracking down a bug in software logic that has been crashing a feature.", alignsWith: "swe" },
+          { text: "Digging through numbers in a database to discover a trend or prove an important hypothesis.", alignsWith: "data" },
+          { text: "Discovering how an attacker could bypass a password system and patching the defense.", alignsWith: "sec" },
+          { text: "Automating cloud servers and build scripts so software deploys without manual steps.", alignsWith: "cloud" }
+        ]
+      },
+      {
+        dilemma: "Round 3: If you had to pick your ideal daily rhythm, which would you pick?",
+        choices: [
+          { text: "Putting on headphones for several hours of quiet, focused building time without meetings.", alignsWith: "swe" },
+          { text: "Facilitating whiteboarding sessions with clients and teammates to design business workflows.", alignsWith: "ba" },
+          { text: "Configuring a major enterprise tool (like Salesforce or SAP) to help a business run smoothly.", alignsWith: "erp" },
+          { text: "Interviewing users to hear their frustrations and refining designs to make tasks intuitive.", alignsWith: "uxpm" }
+        ]
+      },
+      {
+        dilemma: "Round 4: Imagine a campus registration app crashes for hundreds of students. What role do you want to play?",
+        choices: [
+          { text: "Open the server terminal and database connection logs to fix the infrastructure outage.", alignsWith: "cloud" },
+          { text: "Verify that our platform is not suffering an unauthorized cyber breach or credential attack.", alignsWith: "sec" },
+          { text: "Coordinate the response team, keep stakeholders updated, and ensure people are working on the top priority.", alignsWith: "pm" },
+          { text: "Query the registration tables to calculate exactly which students were blocked and how many were affected.", alignsWith: "data" }
+        ]
+      },
+      {
+        dilemma: "Round 5: What kind of frustration drains your energy the fastest in a group setting?",
+        choices: [
+          { text: "Sitting in long, repetitive meetings where people talk in circles instead of building solutions.", alignsWith: "swe" },
+          { text: "Teammates who start writing code without understanding who needs the feature or why it matters.", alignsWith: "ba" },
+          { text: "Clunky, confusing digital apps with poor layout choices that make simple tasks painful.", alignsWith: "uxpm" },
+          { text: "Disorganized projects with missed deadlines, vague expectations, and zero accountability.", alignsWith: "pm" }
+        ]
+      },
+      {
+        dilemma: "Round 6: Which topic sounds most interesting for you to explore during the Junior Core?",
+        choices: [
+          { text: "Cloud infrastructure (AWS/Azure), automated containers, and high-availability servers.", alignsWith: "cloud" },
+          { text: "Advanced SQL queries, data visualization dashboards, and predictive trend modeling.", alignsWith: "data" },
+          { text: "Network defense protocols, identity management, and ethical security testing.", alignsWith: "sec" },
+          { text: "How enterprise platform architectures (like SAP and Salesforce) run global corporations.", alignsWith: "erp" }
+        ]
+      },
+      {
+        dilemma: "Round 7: How do you prefer to convince teammates of your point of view?",
+        choices: [
+          { text: "By showing a working interactive demo that proves the concept works right in front of them.", alignsWith: "swe" },
+          { text: "By presenting clean charts, metrics, and quantitative evidence that back up the point with data.", alignsWith: "data" },
+          { text: "By showing visual mockups and customer quotes that illustrate the human experience.", alignsWith: "uxpm" },
+          { text: "By walking through a structured requirements diagram that explains risks, costs, and steps.", alignsWith: "ba" }
+        ]
+      },
+      {
+        dilemma: "Round 8: If a corporate sponsor asks your team to help grow customer sales, where do you start?",
+        choices: [
+          { text: "Configure a CRM tool like Salesforce to streamline customer data across the company.", alignsWith: "erp" },
+          { text: "Build an analytics dashboard to isolate where potential buyers drop off during checkout.", alignsWith: "data" },
+          { text: "Redesign the user signup journey to make onboarding effortless and appealing.", alignsWith: "uxpm" },
+          { text: "Ensure the payment flow is secure, compliant, and protected against data leaks.", alignsWith: "sec" }
+        ]
+      },
+      {
+        dilemma: "Round 9: What is your preferred way to keep a team project moving forward?",
+        choices: [
+          { text: "Volunteering to write the backend code or construct the core technical component.", alignsWith: "swe" },
+          { text: "Maintaining a shared task board, checking in on blockers, and keeping team morale high.", alignsWith: "pm" },
+          { text: "Clarifying the project rubric and making sure our deliverable satisfies all business specs.", alignsWith: "ba" },
+          { text: "Automating deployment scripts so the team can test without manual server headaches.", alignsWith: "cloud" }
+        ]
+      },
+      {
+        dilemma: "Round 10: Which project outcome would make you proudest to discuss with recruiters at the STEM Fair?",
+        choices: [
+          { text: "A fully working full-stack web application that I personally coded and deployed.", alignsWith: "swe" },
+          { text: "A strategic business analysis where I solved operational problems and mapped new workflows.", alignsWith: "ba" },
+          { text: "An enterprise platform configuration that solved real corporate supply chain issues.", alignsWith: "erp" },
+          { text: "An automated cloud infrastructure setup with secure firewalls, zero downtime, and containers.", alignsWith: "cloud" }
+        ]
+      }
+    ];
+
+    // --- 3. STATE REPOSITORY ---
+    let activeCareerId = "swe";
+    const inspectedCareerIds = new Set(["swe"]);
+    let currentFilter = "all";
+    let fighter1 = null;
+    let fighter2 = null;
+    let battleRound = 0;
+    let score1 = 0;
+    let score2 = 0;
+    let declaredWinnerId = null;
+
+    // --- 4. PART A CAROUSEL LOGIC ---
+    function initPartA() {
+      renderCarouselCards();
+      renderDetailPanel(activeCareerId);
+      updateGatewayStatus();
+      updateScrollButtonVisibility();
+    }
+
+    function renderCarouselCards() {
+      const track = document.getElementById("carouselTrack");
+      track.innerHTML = "";
+
+      const filtered = careerTracks.filter(c => {
+        if (currentFilter === "all") return true;
+        return c.categoryGroup === currentFilter;
+      });
+
+      filtered.forEach(c => {
+        const isSelected = c.id === activeCareerId;
+        const isRead = inspectedCareerIds.has(c.id);
+
+        const card = document.createElement("div");
+        card.className = `career-card ${c.themeClass} ${isSelected ? "selected" : ""}`;
+        card.onclick = () => selectCareerCard(c.id);
+        card.innerHTML = `
+          <div>
+            <span class="card-badge ${c.badgeClass}">${c.categoryBadge}</span>
+            <h3 class="card-title">${c.title}</h3>
+            <p class="card-snippet">${c.snippet}</p>
+          </div>
+          <span class="card-inspect-tag ${isRead ? "inspected" : "unopened"}">
+            ${isRead ? "&#10003; Inspected" : "Uninspected"}
+          </span>
+        `;
+        track.appendChild(card);
+      });
+
+      updateScrollButtonVisibility();
+    }
+
+    function updateScrollButtonVisibility() {
+      const btnLeft = document.getElementById("scrollBtnLeft");
+      const btnRight = document.getElementById("scrollBtnRight");
+
+      if (currentFilter !== "all") {
+        btnLeft.classList.add("hidden");
+        btnRight.classList.add("hidden");
+      } else {
+        btnLeft.classList.remove("hidden");
+        btnRight.classList.remove("hidden");
+      }
+    }
+
+    function selectCareerCard(id) {
+      activeCareerId = id;
+      inspectedCareerIds.add(id);
+      renderCarouselCards();
+      renderDetailPanel(id);
+      updateGatewayStatus();
+    }
+
+    function renderDetailPanel(id) {
+      const c = careerTracks.find(item => item.id === id);
+      const panel = document.getElementById("detailPanel");
+
+      panel.innerHTML = `
+        <div class="detail-header-row">
+          <div>
+            <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:${c.accentColor}; letter-spacing:0.8px;">${c.categoryBadge} Profile</span>
+            <h2 class="detail-heading">${c.title}</h2>
+          </div>
+          <button class="btn-enter-arena" style="padding: 8px 18px; font-size: 0.82rem;" onclick="queueCareerForDuel('${c.id}')">
+            Duel With This Role &darr;
+          </button>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-cell" style="border-left-color: ${c.accentColor};">
+            <div class="detail-label" style="color: ${c.accentColor};">Day-to-Day Responsibilities</div>
+            <p class="detail-val">${c.dayToDay}</p>
+          </div>
+
+          <div class="detail-cell" style="border-left-color: ${c.accentColor};">
+            <div class="detail-label" style="color: ${c.accentColor};">Core Technical Stack & Tools</div>
+            <div class="pills-group">
+              ${c.skills.map(s => `<span class="tool-pill">${s}</span>`).join("")}
+            </div>
+          </div>
+
+          <div class="detail-cell" style="border-left-color: ${c.accentColor};">
+            <div class="detail-label" style="color: ${c.accentColor};">Internship & Junior Expectations</div>
+            <p class="detail-val">${c.internExpectations}</p>
+          </div>
+
+          <div class="detail-cell" style="border-left-color: ${c.accentColor};">
+            <div class="detail-label" style="color: ${c.accentColor};">Verified Compensation & Trajectory</div>
+            <p class="detail-val">${c.salary}</p>
+          </div>
+        </div>
+
+        <div class="detail-cell" style="margin-top: 18px; border-left-color: var(--byu-gold);">
+          <div class="detail-label" style="color: var(--byu-gold);">What Makes a Standout Candidate?</div>
+          <p class="detail-val">${c.standout}</p>
+        </div>
+
+        <div class="read-more-bar">
+          <div>
+            <strong style="color: var(--byu-navy); font-size: 0.95rem;">Curious about daily schedules & BYU placement data?</strong>
+            <p style="font-size: 0.82rem; color: #475569; margin-top: 2px;">View schedules, top employers, geographic hubs, pros & cons, and 5-year outlook.</p>
+          </div>
+          <button class="btn-toggle-readmore" id="btnToggleDrawer" onclick="toggleDeepDiveDrawer()">
+            Read More & Stats &#9662;
+          </button>
+        </div>
+
+        <div class="deep-dive-drawer" id="deepDiveDrawer">
+          <div class="drawer-section-title">
+            <span>&#128202;</span> Official BYU IS Placement Benchmarks (iscareers.byu.edu)
+          </div>
+
+          <div class="stats-table-wrapper">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Degree Track</th>
+                  <th>Avg. Starting Base</th>
+                  <th>Internship to Full-Time Conversion</th>
+                  <th>3-Month Placement Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Undergraduate (BSIS)</strong></td>
+                  <td>${c.deepDive.byuStats.bsisAvg}</td>
+                  <td>${c.deepDive.byuStats.conversionRate.split("/")[0]}</td>
+                  <td>${c.deepDive.byuStats.placementRate}</td>
+                </tr>
+                <tr>
+                  <td><strong>Graduate (MISM)</strong></td>
+                  <td>${c.deepDive.byuStats.mismAvg}</td>
+                  <td>${c.deepDive.byuStats.conversionRate.split("/")[1] || "59%"}</td>
+                  <td>94%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="detail-grid" style="margin-bottom: 22px;">
+            <div class="detail-cell" style="border-left-color: var(--byu-royal);">
+              <div class="detail-label">Top Hiring Employers (BYU Alumni Footprint)</div>
+              <div class="pills-group">
+                ${c.deepDive.topEmployers.map(emp => `<span class="tool-pill" style="background:#EBF3FA; color:var(--byu-navy);">${emp}</span>`).join("")}
+              </div>
+            </div>
+
+            <div class="detail-cell" style="border-left-color: var(--byu-navy);">
+              <div class="detail-label">Top Geographic Placement Hubs</div>
+              <p class="detail-val">${c.deepDive.topLocations.join(" • ")}</p>
+            </div>
+          </div>
+
+          <div class="drawer-section-title">
+            <span>&#9200;</span> Realistic Day-in-the-Life Schedule
+          </div>
+          <div class="schedule-timeline">
+            ${c.deepDive.schedule.map(s => `
+              <div class="schedule-item">
+                <div class="schedule-time">${s.time}</div>
+                <div class="schedule-desc">${s.desc}</div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="drawer-section-title">
+            <span>&#9878;</span> Pros & Cons of the Role
+          </div>
+          <div class="pros-cons-grid">
+            <div class="pros-card">
+              <div class="pros-cons-title" style="color: #15803D;">&#10003; Role Advantages (Pros)</div>
+              <ul class="pros-cons-list">
+                ${c.deepDive.pros.map(p => `<li>${p}</li>`).join("")}
+              </ul>
+            </div>
+            <div class="cons-card">
+              <div class="pros-cons-title" style="color: #B91C1C;">&#9888; Common Trade-Offs (Cons)</div>
+              <ul class="pros-cons-list">
+                ${c.deepDive.cons.map(cn => `<li>${cn}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+
+          <div class="detail-cell" style="border-left-color: #10B981; background: #F0FDF4;">
+            <div class="detail-label" style="color: #047857;">5-Year Industry Outlook</div>
+            <p class="detail-val" style="color: #166534;">${c.deepDive.outlook}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleDeepDiveDrawer() {
+      const drawer = document.getElementById("deepDiveDrawer");
+      const btn = document.getElementById("btnToggleDrawer");
+      if (!drawer) return;
+
+      if (drawer.classList.contains("open")) {
+        drawer.classList.remove("open");
+        btn.innerHTML = "Read More & Stats &#9662;";
+      } else {
+        drawer.classList.add("open");
+        btn.innerHTML = "Hide Deep Dive &#9652;";
+      }
+    }
+
+    function scrollCarousel(direction) {
+      const viewport = document.getElementById("carouselViewport");
+      const cardWidth = 300;
+      viewport.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    }
+
+    function filterCarousel(category, btn) {
+      document.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = category;
+      renderCarouselCards();
+    }
+
+    function updateGatewayStatus() {
+      const count = inspectedCareerIds.size;
+      const total = careerTracks.length;
+      const pct = (count / total) * 100;
+
+      document.getElementById("gateMeterFill").style.width = `${pct}%`;
+
+      if (count === total) {
+        const gate = document.getElementById("arenaGate");
+        gate.classList.add("open");
+        document.getElementById("gateHeading").innerText = "All 8 Career Profiles Explored!";
+        document.getElementById("gateSub").innerText = "You have reviewed all 8 tracks. The Comparison Arena is unlocked.";
+        document.getElementById("btnEnterArena").style.display = "inline-block";
+      } else {
+        document.getElementById("gateHeading").innerText = `Exploration Progress: ${count} of ${total} Inspected`;
+        document.getElementById("gateSub").innerText = "Click through all 8 career cards in the carousel above to unlock the 10-round Matchup Arena.";
+      }
+    }
+
+    function queueCareerForDuel(id) {
+      unlockStadium();
+      document.getElementById("rosterCorner1").value = id;
+      const other = careerTracks.find(c => c.id !== id);
+      if (other) document.getElementById("rosterCorner2").value = other.id;
+      resetMatch();
+    }
+
+    function unlockStadium() {
+      const guideBlock = document.getElementById("arenaGuideBlock");
+      const arena = document.getElementById("arenaColosseum");
+
+      guideBlock.style.display = "block";
+      arena.classList.add("unlocked");
+
+      initRosterDropdowns();
+      resetMatch();
+      guideBlock.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // --- 5. PART B: ARENA ENGINE (10 ROUNDS) ---
+    function initRosterDropdowns() {
+      const s1 = document.getElementById("rosterCorner1");
+      const s2 = document.getElementById("rosterCorner2");
+      s1.innerHTML = "";
+      s2.innerHTML = "";
+
+      careerTracks.forEach((c, idx) => {
+        s1.innerHTML += `<option value="${c.id}" ${idx === 0 ? "selected" : ""}>${c.fighterName} (${c.title.split("/")[0]})</option>`;
+        s2.innerHTML += `<option value="${c.id}" ${idx === 1 ? "selected" : ""}>${c.fighterName} (${c.title.split("/")[0]})</option>`;
+      });
+
+      s1.onchange = resetMatch;
+      s2.onchange = resetMatch;
+    }
+
+    function resetMatch() {
+      const id1 = document.getElementById("rosterCorner1").value;
+      const id2 = document.getElementById("rosterCorner2").value;
+
+      if (id1 === id2) {
+        alert("Please select two distinct careers to duel!");
+        return;
+      }
+
+      fighter1 = careerTracks.find(c => c.id === id1);
+      fighter2 = careerTracks.find(c => c.id === id2);
+
+      battleRound = 0;
+      score1 = 0;
+      score2 = 0;
+      declaredWinnerId = null;
+
+      document.getElementById("titleLeft").innerText = fighter1.fighterName;
+      document.getElementById("titleRight").innerText = fighter2.fighterName;
+
+      document.getElementById("avatarLeft").innerHTML = fighter1.svg;
+      document.getElementById("avatarRight").innerHTML = fighter2.svg;
+
+      document.getElementById("verdictBox").style.display = "none";
+      document.getElementById("dilemmaConsole").style.display = "block";
+
+      refreshHealthGauges();
+      presentDilemma(0);
+    }
+
+    function refreshHealthGauges() {
+      const totalRounds = arenaScenarios.length;
+      const pct1 = Math.max(12, 100 - (score2 * (100 / totalRounds)));
+      const pct2 = Math.max(12, 100 - (score1 * (100 / totalRounds)));
+
+      const bar1 = document.getElementById("hpFillLeft");
+      const bar2 = document.getElementById("hpFillRight");
+
+      bar1.style.width = pct1 + "%";
+      bar2.style.width = pct2 + "%";
+
+      bar1.style.background = pct1 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #22c55e, #15803d)";
+      bar2.style.background = pct2 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #22c55e, #15803d)";
+    }
+
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function presentDilemma(roundIndex) {
+      if (roundIndex >= arenaScenarios.length) {
+        declareArenaWinner();
+        return;
+      }
+
+      document.getElementById("roundIndicator").innerText = `ROUND ${roundIndex + 1} / ${arenaScenarios.length}`;
+      const item = arenaScenarios[roundIndex];
+      document.getElementById("dilemmaTitle").innerText = item.dilemma;
+
+      const grid = document.getElementById("dilemmaGrid");
+      grid.innerHTML = "";
+
+      const randomizedOptions = shuffleArray(item.choices);
+
+      randomizedOptions.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "dilemma-btn";
+        btn.innerText = opt.text;
+        btn.onclick = () => handleStrike(opt.alignsWith);
+        grid.appendChild(btn);
+      });
+    }
+
+    function handleStrike(selectedRole) {
+      const pedLeft = document.getElementById("pedestalLeft");
+      const pedRight = document.getElementById("pedestalRight");
+      const centerSplash = document.getElementById("arenaCenterSplash");
+
+      const matchLeft = (selectedRole === fighter1.id);
+      const matchRight = (selectedRole === fighter2.id);
+
+      if (matchLeft) {
+        score1++;
+        pedLeft.classList.add("l-lunge");
+        setTimeout(() => {
+          pedRight.classList.add("damage-reaction");
+          centerSplash.innerText = `HIT!`;
+          centerSplash.classList.add("show");
+        }, 140);
+      } else if (matchRight) {
+        score2++;
+        pedRight.classList.add("r-lunge");
+        setTimeout(() => {
+          pedLeft.classList.add("damage-reaction");
+          centerSplash.innerText = `HIT!`;
+          centerSplash.classList.add("show");
+        }, 140);
+      } else {
+        score1 += 0.5;
+        score2 += 0.5;
+        pedLeft.classList.add("l-lunge");
+        pedRight.classList.add("r-lunge");
+        setTimeout(() => {
+          centerSplash.innerText = "CLASH!";
+          centerSplash.classList.add("show");
+        }, 140);
+      }
+
+      setTimeout(() => {
+        pedLeft.classList.remove("l-lunge", "damage-reaction");
+        pedRight.classList.remove("r-lunge", "damage-reaction");
+        centerSplash.classList.remove("show");
+
+        refreshHealthGauges();
+        battleRound++;
+        presentDilemma(battleRound);
+      }, 700);
+    }
+
+    // --- 6. SIMPLIFIED VERDICT LOGIC ---
+    function declareArenaWinner() {
+      document.getElementById("dilemmaConsole").style.display = "none";
+      const box = document.getElementById("verdictBox");
+      box.style.display = "block";
+
+      const headline = document.getElementById("verdictHeadline");
+      const intro = document.getElementById("verdictIntro");
+      const badge = document.getElementById("verdictBadge");
+      const p1 = document.getElementById("whyPoint1");
+      const p2 = document.getElementById("whyPoint2");
+      const p3 = document.getElementById("whyPoint3");
+      const deepDiveBtn = document.getElementById("btnDeepDive");
+
+      let winner = null;
+      let runnerUp = null;
+
+      if (score1 > score2) {
+        winner = fighter1;
+        runnerUp = fighter2;
+      } else if (score2 > score1) {
+        winner = fighter2;
+        runnerUp = fighter1;
+      }
+
+      if (winner) {
+        declaredWinnerId = winner.id;
+        badge.innerText = `${winner.title.split("/")[0]} Wins`;
+        headline.innerText = `Dominant Fit: ${winner.fighterName} (${winner.title.split("/")[0]})`;
+        intro.innerHTML = `Across 10 situational questions, your preferences and project habits aligned closer to <strong>${winner.title}</strong> than <strong>${runnerUp.title}</strong>.`;
+
+        p1.innerHTML = `<strong>Why this fits you:</strong> ${winner.summaryWhy}`;
+        p2.innerHTML = `<strong>Your optimal rhythm:</strong> ${winner.summaryRhythm}`;
+        p3.innerHTML = `<strong>STEM Fair action item:</strong> ${winner.summaryAction}`;
+
+        deepDiveBtn.innerText = `Review ${winner.title.split("/")[0]} Details ↑`;
+      } else {
+        declaredWinnerId = fighter1.id;
+        badge.innerText = `Tie (5–5)`;
+        headline.innerText = `Balanced Fit: ${fighter1.title.split("/")[0]} & ${fighter2.title.split("/")[0]}`;
+        intro.innerHTML = `You scored an even split between <strong>${fighter1.title}</strong> and <strong>${fighter2.title}</strong>, demonstrating a versatile hybrid profile.`;
+
+        p1.innerHTML = `<strong>Why this fits you:</strong> You balance hands-on technical execution with high-level team coordination without getting locked into one mold.`;
+        p2.innerHTML = `<strong>Your optimal rhythm:</strong> Alternating between collaborative problem-solving discussions and independent technical delivery.`;
+        p3.innerHTML = `<strong>STEM Fair action item:</strong> Pick one primary project emphasis for your resume before the fair to give recruiters a clear focal point.`;
+
+        deepDiveBtn.innerText = `Review ${fighter1.title.split("/")[0]} Details ↑`;
+      }
+
+      box.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function deepDiveWinner() {
+      if (!declaredWinnerId) return;
+      selectCareerCard(declaredWinnerId);
+      const partA = document.getElementById("partASection");
+      if (partA) {
+        partA.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // --- INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", initPartA);
+  </script>
+</body>
+</html>
