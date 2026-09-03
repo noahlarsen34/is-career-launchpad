@@ -14,12 +14,12 @@
       --byu-white: #FFFFFF;
       --byu-gold: #C28B1E;
       --byu-crimson: #9E1B32;
-      --arena-mat: #1a222d;
-      --arena-ring: #0d131a;
+      --colosseum-stone: #2A2521;
+      --colosseum-sand: #3D352E;
+      --torch-gold: #FF9E1B;
       --neon-cyan: #00f0ff;
-      --neon-gold: #ffb700;
       --shadow-soft: 0 4px 18px rgba(0, 46, 93, 0.08);
-      --shadow-hard: 0 12px 36px rgba(0, 0, 0, 0.35);
+      --shadow-hard: 0 16px 40px rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -93,7 +93,7 @@
       padding: 0 20px;
     }
 
-    /* PART A: CAROUSEL WITH DYNAMIC ARROWS */
+    /* PART A: CAROUSEL */
     .module-section {
       margin-bottom: 40px;
     }
@@ -149,7 +149,6 @@
       border-color: var(--byu-royal);
     }
 
-    /* CAROUSEL WRAPPER WITH PINNED SIDE BUTTONS & HIDDEN SCROLLBAR */
     .carousel-outer-wrapper {
       position: relative;
       display: flex;
@@ -202,12 +201,12 @@
       scroll-behavior: smooth;
       padding: 12px 6px 16px;
       width: 100%;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     .carousel-viewport::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
     }
 
     .carousel-track {
@@ -216,7 +215,6 @@
       width: max-content;
     }
 
-    /* ROLE COLOR STYLES */
     .career-card {
       width: 280px;
       background: var(--byu-white);
@@ -298,7 +296,6 @@
     .card-inspect-tag.inspected { background: #D1FAE5; color: #065F46; }
     .card-inspect-tag.unopened { background: var(--byu-sand-dark); color: #64748B; }
 
-    /* DETAIL SHEET PANEL */
     .detail-panel {
       background: var(--byu-white);
       border-radius: 12px;
@@ -374,7 +371,6 @@
       color: var(--byu-navy);
     }
 
-    /* READ MORE DRAWER */
     .read-more-bar {
       margin-top: 24px;
       display: flex;
@@ -536,7 +532,7 @@
       margin-top: 12px;
     }
 
-    /* GATEWAY LOCK CONTROLLER */
+    /* GATEWAY LOCK */
     .arena-gate {
       background: var(--byu-white);
       border: 2px dashed var(--byu-sand-dark);
@@ -588,7 +584,7 @@
       box-shadow: 0 6px 18px rgba(0, 98, 184, 0.3);
     }
 
-    /* PART B: EXTERNAL LIGHT-THEMED ORIENTATION CARD */
+    /* ARENA ORIENTATION CARD */
     .arena-standalone-guide {
       background: var(--byu-white);
       border: 1px solid var(--byu-sand-dark);
@@ -658,16 +654,16 @@
       line-height: 1.4;
     }
 
-    /* PART B: STADIUM ARENA (DARK DUEL CONTAINER) */
+    /* PART B: COLOSSEUM ARENA */
     .arena-colosseum {
       display: none;
-      background: var(--arena-ring);
+      background: #110e0c;
       border-radius: 16px;
       box-shadow: var(--shadow-hard);
       overflow: hidden;
       color: var(--byu-white);
-      margin-top: 40px;
-      border: 2px solid #283747;
+      margin-top: 20px;
+      border: 3px solid #4a3d33;
     }
 
     .arena-colosseum.unlocked {
@@ -680,15 +676,25 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
+    /* Pinned Top Roster Bar */
     .arena-skyline {
-      background: linear-gradient(180deg, #0b1118 0%, #151e2a 100%);
-      padding: 18px 28px;
+      background: linear-gradient(180deg, #1f1915 0%, #15100d 100%);
+      padding: 16px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #233140;
+      border-bottom: 3px solid #3d3027;
       flex-wrap: wrap;
       gap: 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .roster-controls-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .roster-picker {
@@ -698,9 +704,9 @@
     }
 
     .roster-select {
-      background: #192330;
-      color: var(--byu-white);
-      border: 1px solid #3d4f63;
+      background: #2b231d;
+      color: var(--byu-sand);
+      border: 1px solid #5a4739;
       border-radius: 4px;
       padding: 8px 12px;
       font-size: 0.92rem;
@@ -708,148 +714,229 @@
       outline: none;
     }
 
+    /* ROMAN COLOSSEUM MAT & ARCHES */
     .battle-canvas {
-      background: radial-gradient(circle at center, #202b38 0%, #10151c 85%);
+      background: radial-gradient(circle at center, #3a3028 0%, #17120e 90%);
       position: relative;
-      padding: 36px 20px 10px;
+      padding: 30px 20px 10px;
       overflow: hidden;
-      min-height: 440px;
+      min-height: 500px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .rope-line {
+    .colosseum-arches {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.14);
-      border-top: 1px solid rgba(0, 240, 255, 0.2);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      height: 180px;
+      background-image: 
+        radial-gradient(ellipse at 15% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 35% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 50% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 65% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px),
+        radial-gradient(ellipse at 85% 30%, transparent 22px, #1c1511 23px, #1c1511 35px, transparent 36px);
+      opacity: 0.45;
+      pointer-events: none;
       z-index: 1;
     }
-    .rope-1 { top: 110px; }
-    .rope-2 { top: 150px; }
-    .rope-3 { top: 190px; }
+
+    .colosseum-torch {
+      position: absolute;
+      top: 40px;
+      width: 18px;
+      height: 28px;
+      background: #8b4513;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .colosseum-torch::after {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 2px;
+      width: 14px;
+      height: 20px;
+      background: radial-gradient(circle, #ffe600 20%, #ff5500 80%, transparent);
+      border-radius: 50% 50% 20% 20%;
+      animation: torchFlicker 0.25s infinite alternate;
+      filter: drop-shadow(0 0 10px #ff9e1b);
+    }
+
+    @keyframes torchFlicker {
+      0% { transform: scale(0.9) rotate(-3deg); opacity: 0.85; }
+      100% { transform: scale(1.15) rotate(3deg); opacity: 1; }
+    }
+
+    .torch-left { left: 45px; }
+    .torch-right { right: 45px; }
+
+    .iron-chain {
+      position: absolute;
+      width: 100%;
+      height: 6px;
+      background-image: repeating-linear-gradient(90deg, #443c34 0px, #443c34 8px, #1c1612 9px, #1c1612 16px);
+      border-top: 1px solid #706355;
+      border-bottom: 1px solid #000;
+      z-index: 1;
+      opacity: 0.7;
+    }
+    .chain-1 { top: 120px; }
+    .chain-2 { top: 165px; }
+    .chain-3 { top: 210px; }
 
     .fighters-row {
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
       position: relative;
-      z-index: 3;
-      padding: 0 30px;
-      min-height: 230px;
+      z-index: 5;
+      padding: 0 20px;
+      min-height: 260px;
     }
 
     .fighter-pedestal {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 170px;
+      width: 220px;
       position: relative;
       transition: transform 0.2s;
     }
 
+    .stone-dais {
+      width: 160px;
+      height: 16px;
+      background: linear-gradient(180deg, #5a4b3e 0%, #2e261f 100%);
+      border: 2px solid #736151;
+      border-radius: 50%;
+      margin-top: -10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      z-index: -1;
+    }
+
     .hp-shell {
-      width: 150px;
-      background: #11171f;
-      border: 2px solid #3e4f63;
+      width: 160px;
+      background: #110e0c;
+      border: 2px solid #5a4739;
       border-radius: 6px;
       padding: 3px;
-      margin-bottom: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 14px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.8);
     }
 
     .hp-fill {
-      height: 13px;
-      background: linear-gradient(90deg, #10B981, #059669);
+      height: 14px;
+      background: linear-gradient(90deg, #22c55e, #15803d);
       border-radius: 3px;
       transition: width 0.4s ease-out, background 0.4s;
       width: 100%;
     }
 
     .fighter-avatar {
-      width: 125px;
-      height: 145px;
+      width: 175px;
+      height: 185px;
       position: relative;
+      filter: drop-shadow(0 12px 16px rgba(0,0,0,0.7));
     }
 
     .fighter-title-tag {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 900;
-      color: var(--byu-sand);
+      color: #e5d8cb;
       margin-top: 8px;
       text-align: center;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      text-shadow: 0 2px 4px #000;
+    }
+
+    /* CENTER CLASH HUB */
+    .arena-center-hub {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
     }
 
     .stadium-score-bug {
-      background: rgba(17, 23, 31, 0.85);
-      border: 1px solid #3e4f63;
-      border-radius: 6px;
-      padding: 8px 16px;
+      background: rgba(26, 20, 16, 0.9);
+      border: 2px solid #5a4739;
+      border-radius: 8px;
+      padding: 8px 18px;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 5;
     }
 
     .score-round {
       font-size: 1.15rem;
       font-weight: 900;
       letter-spacing: 2px;
-      color: var(--neon-cyan);
+      color: var(--torch-gold);
+      text-shadow: 0 0 8px rgba(255, 158, 27, 0.5);
     }
 
-    /* PUNCH AND HIT DYNAMICS */
-    .l-lunge { animation: lungeLeft 0.35s ease-in-out; }
-    .r-lunge { animation: lungeRight 0.35s ease-in-out; }
-    .damage-reaction { animation: hurtShake 0.35s ease-in-out; }
+    /* CENTER IMPACT WORDING */
+    .arena-center-splash {
+      position: absolute;
+      top: -46px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.6);
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #ffd000;
+      letter-spacing: 2px;
+      text-shadow: 0 0 14px #ff4800, 0 0 24px #000, 0 2px 6px #000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 25;
+      white-space: nowrap;
+    }
 
-    @keyframes lungeLeft {
+    .arena-center-splash.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.15);
+    }
+
+    /* PUNCH & IMPACT LAYERING */
+    .l-lunge { animation: colosseumLungeLeft 0.35s ease-in-out; }
+    .r-lunge { animation: colosseumLungeRight 0.35s ease-in-out; }
+    .damage-reaction { animation: stoneStagger 0.35s ease-in-out; }
+
+    @keyframes colosseumLungeLeft {
       0% { transform: translateX(0); }
-      50% { transform: translateX(110px) rotate(10deg); }
+      50% { transform: translateX(120px) rotate(12deg) scale(1.05); }
       100% { transform: translateX(0); }
     }
 
-    @keyframes lungeRight {
+    @keyframes colosseumLungeRight {
       0% { transform: translateX(0); }
-      50% { transform: translateX(-110px) rotate(-10deg); }
+      50% { transform: translateX(-120px) rotate(-12deg) scale(1.05); }
       100% { transform: translateX(0); }
     }
 
-    @keyframes hurtShake {
+    @keyframes stoneStagger {
       0% { transform: translateX(0); }
-      25% { transform: translateX(14px); filter: brightness(2.5) drop-shadow(0 0 14px var(--byu-crimson)); }
+      25% { transform: translateX(14px); filter: brightness(2.2) drop-shadow(0 0 16px var(--byu-crimson)); }
       50% { transform: translateX(-10px); }
       75% { transform: translateX(6px); }
       100% { transform: translateX(0); }
     }
 
-    .impact-splash {
-      position: absolute;
-      top: -26px;
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--neon-gold);
-      text-shadow: 0 0 10px rgba(0,0,0,0.9);
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.2s;
-    }
-
-    .impact-splash.show {
-      opacity: 1;
-      transform: translateY(-14px) scale(1.2);
-    }
-
-    /* 4-OPTION DILEMMA CONSOLE */
     .dilemma-console {
       background: var(--byu-white);
       color: var(--byu-slate);
       border-radius: 10px;
       padding: 24px;
       margin: 18px 20px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6);
       position: relative;
       z-index: 4;
     }
@@ -893,7 +980,6 @@
       transform: translateY(-1px);
     }
 
-    /* SIMPLIFIED VERDICT BANNER */
     .arena-verdict-box {
       background: var(--byu-white);
       color: var(--byu-slate);
@@ -1035,7 +1121,7 @@
     </div>
 
     <section class="arena-standalone-guide" id="arenaGuideBlock" style="display: none;">
-      <span class="guide-badge">Career Comparison Arena</span>
+      <span class="guide-badge">Colosseum Comparison Arena</span>
       <h2>Torn Between Two Career Paths? Let Real Decisions Break the Tie.</h2>
       <p>
         Information Systems opens doors to distinct disciplines, and it is normal to like more than one. 
@@ -1047,7 +1133,7 @@
       <div class="guide-steps-row">
         <div class="guide-step-box">
           <div class="step-num">Step 1: Choose Your Matchup</div>
-          <div class="step-text">Select two distinct career paths you find appealing using the Corner 1 and Corner 2 dropdowns.</div>
+          <div class="step-text">Select two distinct career paths you find appealing using the Gladiator 1 and Gladiator 2 dropdowns.</div>
         </div>
         <div class="guide-step-box">
           <div class="step-num">Step 2: Answer Work Dilemmas</div>
@@ -1062,41 +1148,49 @@
 
     <section class="arena-colosseum" id="arenaColosseum">
       <div class="arena-skyline">
-        <div class="roster-picker">
-          <label style="font-size: 0.8rem; text-transform: uppercase; color: #94A3B8; font-weight: 800;">Corner 1:</label>
-          <select class="roster-select" id="rosterCorner1"></select>
+        <div class="roster-controls-cluster">
+          <div class="roster-picker">
+            <label style="font-size: 0.8rem; text-transform: uppercase; color: #a89484; font-weight: 800;">Gladiator 1:</label>
+            <select class="roster-select" id="rosterCorner1"></select>
+          </div>
+          <div style="font-size: 1.4rem; font-weight: 900; color: var(--torch-gold); text-shadow: 0 0 10px rgba(255,158,27,0.7);">VS</div>
+          <div class="roster-picker">
+            <label style="font-size: 0.8rem; text-transform: uppercase; color: #a89484; font-weight: 800;">Gladiator 2:</label>
+            <select class="roster-select" id="rosterCorner2"></select>
+          </div>
+          <button class="btn-enter-arena" style="padding: 8px 18px; font-size: 0.85rem; margin-left: 8px;" onclick="resetMatch()">Rematch</button>
         </div>
-        <div style="font-size: 1.4rem; font-weight: 900; color: var(--neon-cyan); text-shadow: 0 0 10px rgba(0,240,255,0.5);">VS</div>
-        <div class="roster-picker">
-          <label style="font-size: 0.8rem; text-transform: uppercase; color: #94A3B8; font-weight: 800;">Corner 2:</label>
-          <select class="roster-select" id="rosterCorner2"></select>
-        </div>
-        <button class="btn-enter-arena" style="padding: 8px 18px; font-size: 0.85rem;" onclick="resetMatch()">Rematch</button>
       </div>
 
       <div class="battle-canvas">
-        <div class="rope-line rope-1"></div>
-        <div class="rope-line rope-2"></div>
-        <div class="rope-line rope-3"></div>
+        <div class="colosseum-arches"></div>
+        <div class="colosseum-torch torch-left"></div>
+        <div class="colosseum-torch torch-right"></div>
+        <div class="iron-chain chain-1"></div>
+        <div class="iron-chain chain-2"></div>
+        <div class="iron-chain chain-3"></div>
 
         <div class="fighters-row">
           <div class="fighter-pedestal" id="pedestalLeft">
-            <div class="impact-splash" id="impactLeft">CLASH!</div>
             <div class="hp-shell"><div class="hp-fill" id="hpFillLeft"></div></div>
             <div class="fighter-avatar" id="avatarLeft"></div>
-            <div class="fighter-title-tag" id="titleLeft">Fighter 1</div>
+            <div class="stone-dais"></div>
+            <div class="fighter-title-tag" id="titleLeft">Gladiator 1</div>
           </div>
 
-          <div class="stadium-score-bug">
-            <div class="score-round" id="roundIndicator">ROUND 1 / 10</div>
-            <span style="font-size: 0.72rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px;">Alignment Clash</span>
+          <div class="arena-center-hub">
+            <div class="arena-center-splash" id="arenaCenterSplash">HIT!</div>
+            <div class="stadium-score-bug">
+              <div class="score-round" id="roundIndicator">ROUND 1 / 10</div>
+              <span style="font-size: 0.72rem; color: #a89484; text-transform: uppercase; letter-spacing: 1px;">Colosseum Trial</span>
+            </div>
           </div>
 
           <div class="fighter-pedestal" id="pedestalRight">
-            <div class="impact-splash" id="impactRight">CLASH!</div>
             <div class="hp-shell"><div class="hp-fill" id="hpFillRight"></div></div>
             <div class="fighter-avatar" id="avatarRight"></div>
-            <div class="fighter-title-tag" id="titleRight">Fighter 2</div>
+            <div class="stone-dais"></div>
+            <div class="fighter-title-tag" id="titleRight">Gladiator 2</div>
           </div>
         </div>
 
@@ -1135,7 +1229,7 @@
   </main>
 
   <script>
-    // --- 1. DATA REPOSITORY: 8 CORE IS PATHS WITH DEEP-DIVE EXPANSION ---
+    // --- 1. DATA REPOSITORY: 8 CORE IS PATHS WITH DETAILED GLADIATOR SVGS ---
     const careerTracks = [
       {
         id: "swe",
@@ -1181,20 +1275,25 @@
             "Occasional on-call rotation schedules for unexpected production outages.",
             "Fast-moving technical stacks require continuous learning outside work."
           ],
-          outlook: "Strong 5-year growth. As AI-assisted development (GitHub Copilot, Cursor) accelerates boilerplate coding, demand is shifting toward developers who understand complex architecture, system integration, and security."
+          outlook: "Strong 5-year growth. As AI-assisted development accelerates boilerplate coding, demand is shifting toward developers who understand complex architecture, system integration, and security."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <rect x="35" y="45" width="60" height="60" rx="10" fill="#002E5D" stroke="#00f0ff" stroke-width="2"/>
-            <polygon points="65,55 85,75 65,95 45,75" fill="#0062B8"/>
-            <circle cx="65" cy="75" r="8" fill="#00f0ff"/>
-            <circle cx="65" cy="30" r="22" fill="#1B242C" stroke="#00f0ff" stroke-width="1.5"/>
-            <path d="M 50 28 Q 65 35 80 28" stroke="#00f0ff" stroke-width="4" fill="none"/>
-            <rect x="18" y="30" width="8" height="90" rx="4" fill="#64748B"/>
-            <rect x="6" y="25" width="32" height="24" rx="4" fill="#002E5D" stroke="#00f0ff" stroke-width="2"/>
-            <text x="12" y="41" font-size="11" font-weight="900" fill="#00f0ff" font-family="monospace">&lt;/&gt;</text>
-            <circle cx="102" cy="85" r="14" fill="#1B242C" stroke="#0062B8" stroke-width="2"/>
-            <circle cx="102" cy="85" r="6" fill="#00f0ff"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="55,55 120,55 130,145 45,145" fill="#1b2533" stroke="#0062B8" stroke-width="2.5"/>
+            <path d="M 68 70 Q 88 85 108 70" stroke="#00f0ff" stroke-width="2" fill="none"/>
+            <path d="M 72 95 Q 88 110 104 95" stroke="#00f0ff" stroke-width="2" fill="none"/>
+            <line x1="88" y1="60" x2="88" y2="135" stroke="#0062B8" stroke-width="2.5"/>
+            <path d="M 65 30 Q 88 10 110 30 L 115 50 L 60 50 Z" fill="#2d3748" stroke="#0062B8" stroke-width="2"/>
+            <path d="M 60 18 Q 88 0 115 18" stroke="#00f0ff" stroke-width="5" fill="none"/>
+            <rect x="70" y="36" width="35" height="7" rx="2" fill="#00f0ff"/>
+            <polygon points="145,20 152,130 138,130" fill="#e2e8f0" stroke="#00f0ff" stroke-width="2"/>
+            <rect x="135" y="130" width="20" height="8" rx="2" fill="#002E5D"/>
+            <rect x="142" y="138" width="6" height="24" rx="2" fill="#475569"/>
+            <circle cx="145" cy="164" r="6" fill="#00f0ff"/>
+            <text x="141" y="80" font-size="9" font-weight="900" fill="#0062B8" font-family="monospace">&lt;&gt;</text>
+            <rect x="15" y="50" width="34" height="95" rx="5" fill="#002E5D" stroke="#00f0ff" stroke-width="2.5"/>
+            <circle cx="32" cy="98" r="10" fill="#0062B8" stroke="#ffffff" stroke-width="1.5"/>
+            <text x="25" y="102" font-size="10" font-weight="900" fill="#fff" font-family="monospace">01</text>
           </svg>
         `
       },
@@ -1245,21 +1344,26 @@
           outlook: "Continuous growth. Organizations upgrading legacy tech stacks need analysts who can bridge technical developers with corporate leadership."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <polygon points="35,45 95,45 105,115 25,115" fill="#1B242C" stroke="#C28B1E" stroke-width="2"/>
-            <circle cx="65" cy="30" r="20" fill="#F4EFEA"/>
-            <path d="M 45 22 Q 65 14 85 22" stroke="#C28B1E" stroke-width="3" fill="none"/>
-            <rect x="85" y="55" width="36" height="50" rx="3" fill="#002E5D" stroke="#ffb700" stroke-width="1.5" transform="rotate(-10 85 55)"/>
-            <line x1="90" y1="65" x2="110" y2="65" stroke="#FFFFFF" stroke-width="1.5"/>
-            <line x1="90" y1="72" x2="115" y2="72" stroke="#FFFFFF" stroke-width="1.5"/>
-            <line x1="20" y1="105" x2="40" y2="65" stroke="#C28B1E" stroke-width="3"/>
-            <circle cx="20" cy="105" r="5" fill="#ffb700"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 135,150 40,150" fill="#2c241e" stroke="#C28B1E" stroke-width="2.5"/>
+            <path d="M 50 55 L 130 145" stroke="#C28B1E" stroke-width="12" stroke-linecap="round"/>
+            <circle cx="88" cy="36" r="22" fill="#F4EFEA"/>
+            <path d="M 68 28 Q 88 16 108 28" stroke="#C28B1E" stroke-width="4" fill="none"/>
+            <circle cx="88" cy="22" r="3" fill="#ffb700"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#C28B1E" stroke-width="3.5"/>
+            <polygon points="145,5 152,25 138,25" fill="#e2e8f0" stroke="#C28B1E" stroke-width="1.5"/>
+            <rect x="18" y="60" width="35" height="60" rx="3" fill="#002E5D" stroke="#ffb700" stroke-width="2"/>
+            <line x1="24" y1="72" x2="46" y2="72" stroke="#FFFFFF" stroke-width="2"/>
+            <line x1="24" y1="84" x2="42" y2="84" stroke="#ffb700" stroke-width="2"/>
+            <line x1="24" y1="96" x2="48" y2="96" stroke="#FFFFFF" stroke-width="2"/>
+            <circle cx="145" cy="115" r="7" fill="#C28B1E"/>
+            <circle cx="35" cy="115" r="7" fill="#C28B1E"/>
           </svg>
         `
       },
       {
         id: "data",
-        title: "Data Analyst or Data Scientist",
+        title: "Data Analyst",
         categoryGroup: "data",
         categoryBadge: "Data & BI",
         themeClass: "card-theme-data",
@@ -1304,16 +1408,18 @@
           outlook: "Strong demand. As companies collect terabytes of operational data, analytics engineers who can transform raw data into reliable business models remain essential."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <polygon points="35,45 95,45 100,115 30,115" fill="#0062B8" stroke="#00f0ff" stroke-width="1.5"/>
-            <circle cx="65" cy="28" r="20" fill="#F4EFEA"/>
-            <circle cx="72" cy="28" r="7" stroke="#ffb700" stroke-width="2" fill="none"/>
-            <circle cx="25" cy="70" r="16" fill="#002E5D" stroke="#00f0ff" stroke-width="2"/>
-            <rect x="18" y="72" width="3" height="8" fill="#10B981"/>
-            <rect x="23" y="67" width="3" height="13" fill="#10B981"/>
-            <rect x="28" y="62" width="3" height="18" fill="#10B981"/>
-            <rect x="92" y="70" width="16" height="26" rx="4" fill="#1B242C" stroke="#ffb700" stroke-width="1.5"/>
-            <circle cx="100" cy="83" r="4" fill="#00f0ff"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="55,55 120,55 130,148 45,148" fill="#064e3b" stroke="#10B981" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <circle cx="95" cy="34" r="8" fill="none" stroke="#10B981" stroke-width="2.5"/>
+            <line x1="103" y1="34" x2="110" y2="34" stroke="#10B981" stroke-width="2"/>
+            <circle cx="30" cy="85" r="20" fill="#022c22" stroke="#10B981" stroke-width="2.5"/>
+            <rect x="20" y="86" width="4" height="10" fill="#10B981"/>
+            <rect x="27" y="80" width="4" height="16" fill="#10B981"/>
+            <rect x="34" y="74" width="4" height="22" fill="#10B981"/>
+            <line x1="145" y1="20" x2="145" y2="165" stroke="#047857" stroke-width="4"/>
+            <polygon points="145,10 158,25 145,40 132,25" fill="#10B981" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="145" cy="25" r="4" fill="#fff"/>
           </svg>
         `
       },
@@ -1364,14 +1470,15 @@
           outlook: "Skyrocketing demand. Stricter privacy regulations and expanding AI attack vectors make certified cybersecurity analysts an urgent corporate priority."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <polygon points="40,40 90,40 98,110 32,110" fill="#002E5D" stroke="#9E1B32" stroke-width="2"/>
-            <circle cx="65" cy="28" r="20" fill="#111822"/>
-            <rect x="48" y="24" width="34" height="7" rx="2" fill="#9E1B32"/>
-            <polygon points="12,50 38,35 38,105 12,120" fill="#1B242C" stroke="#9E1B32" stroke-width="2.5"/>
-            <polygon points="18,65 32,55 32,95 18,105" fill="#9E1B32" opacity="0.6"/>
-            <line x1="95" y1="50" x2="115" y2="95" stroke="#9E1B32" stroke-width="4"/>
-            <circle cx="115" cy="95" r="6" fill="#FFFFFF"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,50 125,50 135,148 40,148" fill="#1f1818" stroke="#9E1B32" stroke-width="3"/>
+            <path d="M 60 30 Q 88 15 115 30 L 120 55 L 55 55 Z" fill="#2d1b1b" stroke="#9E1B32" stroke-width="2"/>
+            <rect x="68" y="36" width="40" height="8" rx="2" fill="#ef4444"/>
+            <polygon points="12,50 42,30 42,120 12,140" fill="#450a0a" stroke="#9E1B32" stroke-width="2.5"/>
+            <line x1="27" y1="55" x2="27" y2="115" stroke="#ef4444" stroke-width="2"/>
+            <line x1="16" y1="85" x2="38" y2="85" stroke="#ef4444" stroke-width="2"/>
+            <line x1="145" y1="40" x2="145" y2="165" stroke="#52525b" stroke-width="5"/>
+            <polygon points="135,35 155,35 160,55 130,55" fill="#9E1B32" stroke="#ef4444" stroke-width="1.5"/>
           </svg>
         `
       },
@@ -1422,15 +1529,17 @@
           outlook: "Steady demand. Large corporations investing in digital transformations require disciplined project managers to coordinate complex initiatives."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <rect x="35" y="42" width="60" height="65" rx="8" fill="#1E3A5F" stroke="#C28B1E" stroke-width="2"/>
-            <circle cx="65" cy="26" r="18" fill="#F4EFEA"/>
-            <rect x="75" y="60" width="40" height="50" rx="4" fill="#FFFFFF" stroke="#002E5D" stroke-width="2"/>
-            <line x1="82" y1="70" x2="105" y2="70" stroke="#002E5D" stroke-width="2"/>
-            <line x1="82" y1="78" x2="105" y2="78" stroke="#002E5D" stroke-width="2"/>
-            <line x1="82" y1="86" x2="100" y2="86" stroke="#10B981" stroke-width="2"/>
-            <line x1="20" y1="80" x2="35" y2="80" stroke="#C28B1E" stroke-width="4"/>
-            <circle cx="20" cy="80" r="6" fill="#C28B1E"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 132,150 42,150" fill="#0f172a" stroke="#002E5D" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 64 30 Q 88 12 112 30 L 115 48 L 60 48 Z" fill="#1e293b" stroke="#C28B1E" stroke-width="2"/>
+            <line x1="150" y1="10" x2="150" y2="165" stroke="#C28B1E" stroke-width="4"/>
+            <rect x="120" y="20" width="30" height="24" fill="#002E5D" stroke="#C28B1E" stroke-width="1.5"/>
+            <text x="126" y="37" font-size="12" font-weight="900" fill="#fff">SP</text>
+            <circle cx="32" cy="95" r="22" fill="#1e293b" stroke="#C28B1E" stroke-width="2.5"/>
+            <line x1="20" y1="90" x2="38" y2="90" stroke="#38bdf8" stroke-width="2"/>
+            <line x1="20" y1="96" x2="44" y2="96" stroke="#22c55e" stroke-width="2"/>
+            <line x1="20" y1="102" x2="32" y2="102" stroke="#f59e0b" stroke-width="2"/>
           </svg>
         `
       },
@@ -1481,13 +1590,17 @@
           outlook: "Growing demand. As software products proliferate, user experience and intuitive design are key competitive differentiators."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <polygon points="35,45 95,45 105,115 25,115" fill="#5B21B6" stroke="#EC4899" stroke-width="2"/>
-            <circle cx="65" cy="28" r="20" fill="#F4EFEA"/>
-            <rect x="75" y="55" width="45" height="32" rx="4" fill="#1F2937" stroke="#EC4899" stroke-width="2"/>
-            <rect x="80" y="60" width="12" height="10" rx="1" fill="#EC4899"/>
-            <line x1="96" y1="65" x2="114" y2="65" stroke="#FFFFFF" stroke-width="1.5"/>
-            <circle cx="20" cy="90" r="10" fill="#EC4899"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 130,150 42,150" fill="#2e1065" stroke="#8B5CF6" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 68 28 Q 88 18 108 28" stroke="#ec4899" stroke-width="3.5" fill="none"/>
+            <circle cx="88" cy="23" r="4" fill="#8B5CF6"/>
+            <circle cx="32" cy="90" r="22" fill="#1e1b4b" stroke="#8B5CF6" stroke-width="2.5"/>
+            <circle cx="25" cy="84" r="4" fill="#ec4899"/>
+            <circle cx="38" cy="84" r="4" fill="#a855f7"/>
+            <circle cx="32" cy="98" r="4" fill="#06b6d4"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#ec4899" stroke-width="3.5"/>
+            <polygon points="145,5 154,25 136,25" fill="#8B5CF6" stroke="#fff" stroke-width="1.5"/>
           </svg>
         `
       },
@@ -1538,13 +1651,16 @@
           outlook: "Strong demand. As global corporations migrate their core business operations to the cloud, certified Salesforce, SAP, and Workday experts command premium rates."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <rect x="35" y="42" width="60" height="65" rx="8" fill="#0E7490" stroke="#F59E0B" stroke-width="2"/>
-            <circle cx="65" cy="26" r="18" fill="#F4EFEA"/>
-            <circle cx="25" cy="75" r="16" fill="#1E293B" stroke="#00f0ff" stroke-width="2"/>
-            <path d="M 18 75 L 32 75 M 25 68 L 25 82" stroke="#00f0ff" stroke-width="2"/>
-            <circle cx="105" cy="75" r="16" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
-            <line x1="41" y1="75" x2="89" y2="75" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3,3"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <rect x="50" y="55" width="75" height="95" rx="4" fill="#451a03" stroke="#F59E0B" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#F4EFEA"/>
+            <path d="M 64 30 Q 88 15 112 30 L 116 48 L 60 48 Z" fill="#78350f" stroke="#F59E0B" stroke-width="2"/>
+            <line x1="145" y1="15" x2="145" y2="165" stroke="#b45309" stroke-width="4"/>
+            <circle cx="145" cy="30" r="14" fill="#F59E0B" stroke="#fff" stroke-width="2"/>
+            <circle cx="145" cy="30" r="5" fill="#78350f"/>
+            <rect x="15" y="65" width="35" height="60" rx="4" fill="#083344" stroke="#F59E0B" stroke-width="2"/>
+            <path d="M 22 95 Q 32 85 42 95" stroke="#38bdf8" stroke-width="3" fill="none"/>
+            <circle cx="32" cy="108" r="4" fill="#F59E0B"/>
           </svg>
         `
       },
@@ -1595,14 +1711,15 @@
           outlook: "Rapidly expanding. Multi-cloud architectures, Kubernetes containerization, and enterprise cloud migrations ensure long-term demand for skilled infrastructure engineers."
         },
         svg: `
-          <svg viewBox="0 0 130 150" width="100%" height="100%">
-            <polygon points="35,45 95,45 90,110 40,110" fill="#0369A1" stroke="#38BDF8" stroke-width="2"/>
-            <circle cx="65" cy="28" r="20" fill="#1B242C"/>
-            <path d="M 50 28 Q 65 20 80 28" stroke="#38BDF8" stroke-width="3" fill="none"/>
-            <ellipse cx="65" cy="75" rx="30" ry="16" fill="#002E5D" stroke="#38BDF8" stroke-width="2"/>
-            <circle cx="55" cy="70" r="10" fill="#002E5D"/>
-            <circle cx="75" cy="70" r="10" fill="#002E5D"/>
-            <line x1="65" y1="92" x2="65" y2="115" stroke="#38BDF8" stroke-width="3"/>
+          <svg viewBox="0 0 175 185" width="100%" height="100%">
+            <polygon points="50,55 125,55 130,150 42,150" fill="#082f49" stroke="#06B6D4" stroke-width="2.5"/>
+            <circle cx="88" cy="35" r="22" fill="#1B242C"/>
+            <path d="M 64 32 Q 88 18 112 32" stroke="#38bdf8" stroke-width="4" fill="none"/>
+            <line x1="145" y1="35" x2="145" y2="165" stroke="#0284c7" stroke-width="4"/>
+            <path d="M 132 35 L 132 20 M 145 35 L 145 10 M 158 35 L 158 20" stroke="#06B6D4" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="90" r="24" fill="#0c4a6e" stroke="#38bdf8" stroke-width="2.5"/>
+            <polygon points="32,74 44,81 44,95 32,102 20,95 20,81" fill="none" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="32" cy="88" r="3" fill="#38bdf8"/>
           </svg>
         `
       }
@@ -1750,7 +1867,6 @@
         track.appendChild(card);
       });
 
-      // Update arrow button visibility based on filtered cards count
       updateScrollButtonVisibility();
     }
 
@@ -1758,7 +1874,6 @@
       const btnLeft = document.getElementById("scrollBtnLeft");
       const btnRight = document.getElementById("scrollBtnRight");
       
-      // Hide arrows if a specific sub-category bucket is active (1 to 4 cards)
       if (currentFilter !== "all") {
         btnLeft.classList.add("hidden");
         btnRight.classList.add("hidden");
@@ -2037,8 +2152,8 @@
       bar1.style.width = pct1 + "%";
       bar2.style.width = pct2 + "%";
 
-      bar1.style.background = pct1 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #10B981, #059669)";
-      bar2.style.background = pct2 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #10B981, #059669)";
+      bar1.style.background = pct1 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #22c55e, #15803d)";
+      bar2.style.background = pct2 < 40 ? "var(--byu-crimson)" : "linear-gradient(90deg, #22c55e, #15803d)";
     }
 
     function shuffleArray(array) {
@@ -2077,8 +2192,7 @@
     function handleStrike(selectedRole) {
       const pedLeft = document.getElementById("pedestalLeft");
       const pedRight = document.getElementById("pedestalRight");
-      const splashL = document.getElementById("impactLeft");
-      const splashR = document.getElementById("impactRight");
+      const centerSplash = document.getElementById("arenaCenterSplash");
 
       const matchLeft = (selectedRole === fighter1.id);
       const matchRight = (selectedRole === fighter2.id);
@@ -2088,16 +2202,16 @@
         pedLeft.classList.add("l-lunge");
         setTimeout(() => {
           pedRight.classList.add("damage-reaction");
-          splashR.innerText = "HIT!";
-          splashR.classList.add("show");
+          centerSplash.innerText = `HIT!`;
+          centerSplash.classList.add("show");
         }, 140);
       } else if (matchRight) {
         score2++;
         pedRight.classList.add("r-lunge");
         setTimeout(() => {
           pedLeft.classList.add("damage-reaction");
-          splashL.innerText = "HIT!";
-          splashL.classList.add("show");
+          centerSplash.innerText = `HIT!`;
+          centerSplash.classList.add("show");
         }, 140);
       } else {
         score1 += 0.5;
@@ -2105,18 +2219,15 @@
         pedLeft.classList.add("l-lunge");
         pedRight.classList.add("r-lunge");
         setTimeout(() => {
-          splashL.innerText = "CLASH!";
-          splashR.innerText = "CLASH!";
-          splashL.classList.add("show");
-          splashR.classList.add("show");
+          centerSplash.innerText = "CLASH!";
+          centerSplash.classList.add("show");
         }, 140);
       }
 
       setTimeout(() => {
         pedLeft.classList.remove("l-lunge", "damage-reaction");
         pedRight.classList.remove("r-lunge", "damage-reaction");
-        splashL.classList.remove("show");
-        splashR.classList.remove("show");
+        centerSplash.classList.remove("show");
 
         refreshHealthGauges();
         battleRound++;
