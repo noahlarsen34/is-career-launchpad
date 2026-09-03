@@ -6,7 +6,6 @@
     <title>Interview Prep | IS Career Launchpad</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/interviews.css">
-    <link rel="stylesheet" href="css/quiz.css">
 </head>
 
 <body>
@@ -74,27 +73,22 @@
         <section class="interview-layout">
             <div>
                 <div class="toolbar" aria-label="Question filters">
-                    <label for="questionType">Question type</label>
-                    <select id="questionType">
-                        <option value="all">All questions</option>
-                        <option value="behavioral">Behavioral</option>
-                        <option value="technical">Technical</option>
-                    </select>
+                    <div class="filter-control">
+                        <label for="questionType">Question type</label>
+                        <select id="questionType">
+                            <option value="all">All questions</option>
+                            <option value="behavioral">Behavioral</option>
+                            <option value="technical">Technical</option>
+                        </select>
+                    </div>
+                    <div class="study-progress" aria-live="polite">
+                        <strong id="studyProgress">0 of 5 reviewed</strong>
+                        <div class="progress-track"><span id="studyProgressBar"></span></div>
+                    </div>
                 </div>
 
                 <section class="question-list" id="questionList" aria-live="polite"></section>
             </div>
-
-            <aside class="prep-panel" aria-labelledby="prep-title">
-                <p class="eyebrow">Before the meeting</p>
-                <h2 id="prep-title">Answer checklist</h2>
-                <p class="readiness-copy">Use this for every response, then mark study prompts as reviewed.</p>
-                <div class="quiz-list" id="prepChecklist"></div>
-                <div class="study-progress" aria-live="polite">
-                    <strong id="studyProgress">0 of 5 reviewed</strong>
-                    <div class="progress-track"><span id="studyProgressBar"></span></div>
-                </div>
-            </aside>
         </section>
     </main>
 
@@ -106,7 +100,6 @@
     <script src="js/interview-data.js"></script>
     <script src="js/interview-scoring.js"></script>
     <script src="js/interviews.js"></script>
-    <script src="js/quiz.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

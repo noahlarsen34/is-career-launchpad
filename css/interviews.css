@@ -93,20 +93,35 @@
 }
 
 .interview-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 22px;
-    align-items: start;
     padding-bottom: 72px;
 }
 
 .toolbar {
     justify-content: space-between;
+    gap: 28px;
+    padding: 18px 20px;
+    box-shadow: 0 8px 22px rgba(18, 50, 74, 0.06);
+}
+
+.filter-control {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: min(620px, 100%);
+}
+
+.filter-control label {
+    flex: 0 0 auto;
+}
+
+.filter-control select {
+    flex: 1;
 }
 
 .question-list {
     display: grid;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
 }
 
 .study-section-heading {
@@ -115,6 +130,7 @@
     justify-content: space-between;
     gap: 20px;
     padding: 10px 2px 4px;
+    grid-column: 1 / -1;
 }
 
 .study-section-heading h2 {
@@ -130,7 +146,13 @@
 }
 
 .study-card {
+    display: flex;
+    flex-direction: column;
     padding: 22px;
+}
+
+.study-card:nth-of-type(5) {
+    grid-column: 1 / -1;
 }
 
 .study-card-heading,
@@ -220,7 +242,7 @@
 }
 
 .model-answer {
-    margin-top: 18px;
+    margin-top: auto;
     padding-top: 14px;
     border-top: 1px solid var(--line);
 }
@@ -238,29 +260,10 @@
     background: #f5f8fb;
 }
 
-.prep-panel {
-    position: sticky;
-    top: 92px;
-    padding: 20px;
-}
-
-.prep-panel h2 {
-    margin: 0 0 8px;
-    color: var(--navy);
-    font-size: 1.2rem;
-}
-
-.readiness-copy {
-    margin: 0 0 16px;
-    color: var(--muted);
-    font-size: 0.9rem;
-}
-
 .study-progress {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--line);
+    flex: 0 0 210px;
     color: var(--navy);
+    text-align: right;
 }
 
 .progress-track {
@@ -291,20 +294,18 @@
 }
 
 @media (max-width: 900px) {
-    .interview-layout,
-    .study-overview {
+    .study-overview,
+    .question-list {
         grid-template-columns: 1fr;
-    }
-
-    .prep-panel {
-        position: static;
     }
 }
 
 @media (max-width: 640px) {
     .study-setup,
     .study-card-heading,
-    .study-section-heading {
+    .study-section-heading,
+    .toolbar,
+    .filter-control {
         display: grid;
         grid-template-columns: 1fr;
     }
@@ -315,5 +316,10 @@
 
     .study-action .button {
         width: 100%;
+    }
+
+    .study-progress {
+        width: 100%;
+        text-align: left;
     }
 }
