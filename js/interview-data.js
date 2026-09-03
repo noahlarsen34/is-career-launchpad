@@ -13,6 +13,21 @@ window.launchpadData.interviewRoles = [
 
 window.launchpadData.roleInterviewQuestions = [
     {
+        id: "shared-elevator-pitch",
+        roleId: "all",
+        type: "behavioral",
+        question: "Tell me about yourself.",
+        tip: "Give a 30–60 second elevator pitch: present direction, relevant experience, evidence of your strengths, and why this role is the logical next step.",
+        durationSeconds: { minimum: 30, maximum: 60 },
+        concepts: [
+            { label: "present direction", terms: ["student", "studying", "major", "currently", "focus"] },
+            { label: "relevant experience", terms: ["project", "internship", "work", "experience", "built"] },
+            { label: "evidence of strengths", terms: ["result", "improved", "delivered", "increased", "reduced", "learned"] },
+            { label: "connection to the role", terms: ["role", "position", "opportunity", "interested", "because", "next step"] }
+        ],
+        strongAnswer: "I am an Information Systems student who enjoys turning business problems into practical technology solutions. In a recent team project, I built a dashboard that cleaned and organized sales data, which helped our client identify its strongest customer segment. That experience strengthened my SQL, communication, and problem-solving skills. I am now looking for an internship where I can contribute those skills, learn from an experienced team, and keep building solutions that help people make better decisions."
+    },
+    {
         id: "shared-learning",
         roleId: "all",
         type: "behavioral",

@@ -11,6 +11,21 @@ function question(id) {
 
 const studentStyleResponses = [
     {
+        name: "complete elevator pitch fits the time target",
+        questionId: "shared-elevator-pitch",
+        response: "I am currently an Information Systems student focused on using technology to solve business problems. In a recent project, I built a sales dashboard and worked directly with our client to clarify the metrics. The finished dashboard reduced their weekly reporting work and helped the team identify its strongest customer group. I am interested in this role because it would let me contribute my SQL, problem-solving, and communication skills while learning from an experienced technology team.",
+        minimum: 75,
+        durationMinimum: 30,
+        durationMaximum: 60
+    },
+    {
+        name: "very short elevator pitch receives timing guidance",
+        questionId: "shared-elevator-pitch",
+        response: "I am an IS student and I want this role.",
+        maximum: 35,
+        durationMaximum: 29
+    },
+    {
         name: "strong debugging response with natural synonyms",
         questionId: "software-debugging",
         response: "First I would recreate the failure and narrow down whether it is the browser or server. I would check the network tab, status code, console, and production telemetry. Then I would compare configuration, environment variables, URLs, and CORS. After correcting it, I would verify the success and error paths, deploy carefully, and monitor for the issue returning.",
@@ -63,6 +78,14 @@ studentStyleResponses.forEach((testCase) => {
 
     if (testCase.maximum !== undefined) {
         assert.ok(result.score <= testCase.maximum, `${testCase.name}: expected <= ${testCase.maximum}, received ${result.score}`);
+    }
+
+    if (testCase.durationMinimum !== undefined) {
+        assert.ok(result.estimatedDurationSeconds >= testCase.durationMinimum, `${testCase.name}: pitch was too short`);
+    }
+
+    if (testCase.durationMaximum !== undefined) {
+        assert.ok(result.estimatedDurationSeconds <= testCase.durationMaximum, `${testCase.name}: pitch was too long`);
     }
 
     console.log(`${testCase.name}: ${result.score}/100`);

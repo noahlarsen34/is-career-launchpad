@@ -93,7 +93,17 @@
         const explanationSignals = ["because", "for example", "so that", "then", "after", "result"];
         const explanationCount = explanationSignals.filter((signal) => normalizedAnswer.includes(signal)).length;
         const clarityScore = Math.min(15, explanationCount * 4 + (words.length >= MINIMUM_WORDS ? 3 : 0));
-        const score = isModelAnswer ? 100 : Math.min(100, conceptScore + detailScore + clarityScore);
+        const durationTarget = question?.durationSeconds || null;
+        const estimatedDurationSeconds = durationTarget && words.length
+            ? Math.round(words.length / 2.17)
+            : null;
+        const durationPenalty = estimatedDurationSeconds &&
+            (estimatedDurationSeconds < durationTarget.minimum || estimatedDurationSeconds > durationTarget.maximum)
+            ? 10
+            : 0;
+        const score = isModelAnswer
+            ? 100
+            : Math.max(0, Math.min(100, conceptScore + detailScore + clarityScore - durationPenalty));
 
         const strengths = [];
         const improvements = [];
@@ -118,6 +128,16 @@
             improvements.push("Explain why you would take each major step and what you would verify afterward.");
         }
 
+        if (estimatedDurationSeconds !== null) {
+            if (estimatedDurationSeconds >= durationTarget.minimum && estimatedDurationSeconds <= durationTarget.maximum) {
+                strengths.push("Your estimated speaking time is within the 30–60 second elevator-pitch target.");
+            } else if (estimatedDurationSeconds < durationTarget.minimum) {
+                improvements.push("Your pitch may be under 30 seconds. Add one relevant example and connect it to the role.");
+            } else {
+                improvements.push("Your pitch may exceed 60 seconds. Keep only the experience and strengths most relevant to the role.");
+            }
+        }
+
         if (!strengths.length) {
             strengths.push("You attempted the question; use the criteria below to make the next version stronger.");
         }
@@ -126,6 +146,7 @@
             score,
             label: "Automated practice score",
             disclaimer: "This score uses concept and answer-structure rules. It is not AI analysis or a hiring prediction.",
+            estimatedDurationSeconds,
             matchedConcepts: matchedConcepts.map((item) => item.label),
             missingConcepts: missingConcepts.map((item) => item.label),
             strengths,

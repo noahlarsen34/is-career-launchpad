@@ -67,6 +67,7 @@
                         </label>
                     </div>
                     <h2>${item.question}</h2>
+                    ${item.durationSeconds ? `<p class="duration-target">30–60 second elevator pitch</p>` : ""}
                     <p class="coach-tip"><strong>How to approach it:</strong> ${item.tip}</p>
                     <div class="concept-block">
                         <h3>Concepts to include</h3>

@@ -55,15 +55,15 @@
 
     function buildSession() {
         const allQuestions = window.launchpadData?.roleInterviewQuestions || [];
+        const elevatorPitch = allQuestions.find((item) => item.id === "shared-elevator-pitch");
         const technical = allQuestions.filter((item) => item.roleId === role?.id && item.type === "technical");
         const roleBehavioral = allQuestions.filter((item) => item.roleId === role?.id && item.type === "behavioral");
-        const sharedBehavioral = allQuestions.filter((item) => item.roleId === "all");
 
-        return shuffled([
+        return [
+            elevatorPitch,
             ...shuffled(technical).slice(0, 2),
-            ...shuffled(roleBehavioral).slice(0, 1),
-            ...shuffled(sharedBehavioral).slice(0, 1)
-        ]);
+            ...shuffled(roleBehavioral).slice(0, 1)
+        ];
     }
 
     let questions = buildSession();
@@ -140,6 +140,9 @@
                 <strong class="feedback-score">${result.score}/100</strong>
             </div>
             <p class="feedback-disclaimer">Automated practice feedback—not AI analysis or a hiring prediction.</p>
+            ${result.estimatedDurationSeconds !== null ? `
+                <p><strong>Estimated speaking time</strong><br>${result.estimatedDurationSeconds} seconds (target: 30–60 seconds)</p>
+            ` : ""}
             <p><strong>What worked</strong><br>${result.strengths.join(" ")}</p>
             <p><strong>Improve next</strong><br>${result.improvements.join(" ")}</p>
             <details>
