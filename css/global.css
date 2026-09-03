@@ -1,14 +1,14 @@
 :root {
-    --navy: #12324a;
-    --blue: #1e6f9f;
-    --teal: #0f8b8d;
-    --gold: #c8912f;
-    --ink: #1f2933;
-    --muted: #5f6c7b;
-    --line: #d8e1e8;
+    --navy: #002e5d;
+    --blue: #0062b8;
+    --teal: #0062b8;
+    --gold: #c28b1e;
+    --ink: #1b242c;
+    --muted: #475569;
+    --line: #e4dcd3;
     --panel: #ffffff;
-    --background: #f5f8fb;
-    --shadow: 0 18px 40px rgba(18, 50, 74, 0.12);
+    --background: #f4efea;
+    --shadow: 0 16px 40px rgba(0, 46, 93, 0.14);
 }
 
 * {
@@ -19,8 +19,8 @@ body {
     margin: 0;
     color: var(--ink);
     background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
 }
 
 a {
@@ -31,9 +31,9 @@ a {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(12px);
+    color: #ffffff;
+    background: var(--navy);
+    border-bottom: 4px solid var(--blue);
 }
 
 .nav-bar {
@@ -41,44 +41,32 @@ a {
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    width: min(1120px, calc(100% - 32px));
+    width: 100%;
     margin: 0 auto;
-    padding: 16px 0;
+    padding: 16px 32px;
 }
 
 .brand {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    color: #ffffff;
     text-decoration: none;
 }
 
-.brand-mark {
-    display: grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    color: #ffffff;
-    background: var(--navy);
-    border-radius: 8px;
-    font-weight: 800;
-}
-
-.brand-school,
 .brand-title {
-    display: block;
-}
-
-.brand-school {
-    color: var(--muted);
-    font-size: 0.76rem;
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
-.brand-title {
-    color: var(--navy);
-    font-size: 1.08rem;
-    font-weight: 800;
+.brand-subtitle {
+    padding-left: 10px;
+    color: #f4efea;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.95rem;
 }
 
 .nav-links {
@@ -89,27 +77,30 @@ a {
 }
 
 .nav-links a {
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: var(--muted);
+    padding: 8px 16px;
+    border: 1px solid rgba(244, 239, 234, 0.4);
+    border-radius: 4px;
+    color: #f4efea;
+    font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
 }
 
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
-    color: var(--navy);
-    background: #eaf3f7;
+    color: #ffffff;
+    background: var(--blue);
+    border-color: var(--blue);
 }
 
 main {
-    width: min(1120px, calc(100% - 32px));
+    width: min(1220px, calc(100% - 40px));
     margin: 0 auto;
 }
 
 .hero-section,
 .page-hero {
-    padding: 72px 0 56px;
+    padding: 56px 0 44px;
 }
 
 .hero-section {
@@ -126,12 +117,13 @@ main {
     margin: 0;
     color: var(--navy);
     font-size: clamp(2.35rem, 5vw, 4.4rem);
-    line-height: 1.05;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
 }
 
 .hero-content h1 {
-    max-width: 1040px;
-    font-size: clamp(3rem, 6.4vw, 5.5rem);
+    max-width: 1100px;
+    font-size: clamp(3rem, 6vw, 5rem);
 }
 
 .hero-copy,
@@ -148,7 +140,7 @@ main {
 
 .eyebrow {
     margin: 0 0 12px;
-    color: var(--teal);
+    color: var(--blue);
     font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0;
@@ -183,7 +175,7 @@ main {
 .question-card,
 .prep-panel {
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 12px;
     background: var(--panel);
     box-shadow: 0 12px 28px rgba(18, 50, 74, 0.08);
 }
@@ -278,7 +270,7 @@ main {
 }
 
 .site-footer {
-    width: min(1120px, calc(100% - 32px));
+    width: min(1220px, calc(100% - 40px));
     margin: 0 auto;
     padding: 28px 0 36px;
     color: var(--muted);
@@ -302,6 +294,13 @@ main {
 
     .nav-links {
         justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .nav-links a {
+        white-space: nowrap;
     }
 
     .hero-section,

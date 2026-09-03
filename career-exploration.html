@@ -43,7 +43,7 @@
     .top-strip {
       background: var(--byu-navy);
       color: var(--byu-white);
-      padding: 14px 28px;
+      padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -57,34 +57,58 @@
     }
 
     .brand-title {
-      font-size: 1.2rem;
+      font-size: 1.35rem;
       font-weight: 900;
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
 
     .brand-sub {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       color: var(--byu-sand);
       border-left: 1px solid rgba(255, 255, 255, 0.3);
       padding-left: 10px;
     }
 
-    .home-portal {
+    .launchpad-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .launchpad-tabs a {
       color: var(--byu-sand);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 700;
       border: 1px solid rgba(244, 239, 234, 0.4);
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 4px;
       transition: all 0.2s;
     }
 
-    .home-portal:hover {
+    .launchpad-tabs a:hover,
+    .launchpad-tabs a[aria-current="page"] {
       background: var(--byu-royal);
       color: var(--byu-white);
       border-color: var(--byu-royal);
+    }
+
+    @media (max-width: 700px) {
+      .top-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .launchpad-tabs {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .launchpad-tabs a {
+        white-space: nowrap;
+      }
     }
 
     .content-container {
@@ -1072,7 +1096,11 @@
       <span class="brand-title">BYU</span>
       <span class="brand-sub">IS Junior Core Competition</span>
     </div>
-    <a href="index.html" class="home-portal">&larr; Return to Dashboard</a>
+    <nav class="launchpad-tabs" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="career-exploration.html" aria-current="page">Career Paths</a>
+      <a href="interviews.html">Interview Prep</a>
+    </nav>
   </header>
 
   <main class="content-container">
