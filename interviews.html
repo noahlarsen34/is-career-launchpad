@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep | IS Career Launchpad</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/interviews.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="nav-bar" aria-label="Main navigation">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">IS</span>
+                <span>
+                    <span class="brand-school">BYU Marriott School of Business</span>
+                    <span class="brand-title">IS Career Launchpad</span>
+                </span>
+            </a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+          <a href="career-exploration.html">Career Paths</a>
+                <a href="interviews.html">Interview Prep</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero compact-hero" aria-labelledby="interviews-title">
+            <p class="eyebrow">Interview practice</p>
+            <h1 id="interviews-title">Prepare first. Then practice under pressure.</h1>
+            <p>
+                Choose a career, study what strong answers include, and enter the mock interview
+                when you are ready to answer without notes.
+            </p>
+        </section>
+
+        <section class="study-setup" aria-labelledby="study-title">
+            <div class="study-setup-copy">
+                <p class="eyebrow">Your study guide</p>
+                <h2 id="study-title">Select the role you want to prepare for.</h2>
+                <p>Review two technical topics and behavioral answer patterns before entering the four-question meeting.</p>
+            </div>
+            <div class="role-picker">
+                <label for="careerRole">Target career</label>
+                <select id="careerRole"></select>
+            </div>
+            <div class="study-action">
+                <span>2 technical + 2 behavioral</span>
+                <button class="button button-primary" type="button" id="enterMockInterview">
+                    Enter Mock Interview
+                </button>
+            </div>
+        </section>
+
+        <section class="study-overview" aria-label="Study guide overview">
+            <article>
+                <span class="overview-number">01</span>
+                <div><strong>Review the role</strong><p id="roleFocus"></p></div>
+            </article>
+            <article>
+                <span class="overview-number">02</span>
+                <div><strong>Study the prompts</strong><p>Notice the concepts interviewers listen for.</p></div>
+            </article>
+            <article>
+                <span class="overview-number">03</span>
+                <div><strong>Practice aloud</strong><p>Answer once without reading the example.</p></div>
+            </article>
+        </section>
+
+        <section class="interview-layout">
+            <div>
+                <div class="toolbar" aria-label="Question filters">
+                    <div class="filter-control">
+                        <label for="questionType">Question type</label>
+                        <select id="questionType">
+                            <option value="all">All questions</option>
+                            <option value="behavioral">Behavioral</option>
+                            <option value="technical">Technical</option>
+                        </select>
+                    </div>
+                    <div class="study-progress" aria-live="polite">
+                        <strong id="studyProgress">0 of 5 reviewed</strong>
+                        <div class="progress-track"><span id="studyProgressBar"></span></div>
+                    </div>
+                </div>
+
+                <section class="question-list" id="questionList" aria-live="polite"></section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Strong answers are specific, concise, and connected to the role you want.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/interview-data.js"></script>
+    <script src="js/interview-scoring.js"></script>
+    <script src="js/interviews.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview Meeting | IS Career Launchpad</title>
+    <link rel="stylesheet" href="css/mock-interview.css">
+</head>
+
+<body>
+    <main class="meeting-shell">
+        <header class="meeting-status">
+            <div>
+                <p class="meeting-kicker">IS Career Launchpad</p>
+                <h1 id="meetingTitle">Mock Interview</h1>
+            </div>
+            <div class="status-items" aria-label="Meeting status">
+                <span class="recording-dot">Recording</span>
+                <span id="connectionStatus">Connected</span>
+                <span id="questionStatus">Question 1 of 3</span>
+                <span title="Scores use transparent keyword and answer-structure rules.">Practice scoring</span>
+            </div>
+        </header>
+
+        <section class="meeting-stage" aria-label="Video meeting">
+            <div class="video-area">
+                <article class="main-video interviewer-main" id="mainVideo" aria-label="Main speaker">
+                    <div class="screen-share-preview" id="screenSharePreview" hidden>
+                        <div class="share-window">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p>Shared interview notes</p>
+                    </div>
+
+                    <div class="speaker-content" id="speakerContent">
+                        <div class="character-face" id="characterFace" aria-hidden="true">
+                            <span class="character-eye left-eye"></span>
+                            <span class="character-eye right-eye"></span>
+                            <span class="character-mouth"></span>
+                        </div>
+                        <div class="main-candidate-avatar" id="mainCandidateAvatar" aria-hidden="true" hidden>You</div>
+                        <p class="speaker-line" id="speakerLine">Welcome. I will ask questions tailored to your role.</p>
+                        <section class="feedback-zone" id="feedbackZone" tabindex="-1" aria-live="polite" hidden></section>
+                    </div>
+
+                    <span class="name-label" id="mainNameLabel">Professor Parker</span>
+                </article>
+
+                <div class="participant-strip" aria-label="Participant video tiles">
+                    <article class="participant-tile" id="participantTile">
+                        <div class="tile-avatar candidate-avatar" id="tileAvatar" aria-hidden="true">You</div>
+                        <p id="participantStatus">Camera on</p>
+                        <span class="name-label" id="tileNameLabel">You</span>
+                    </article>
+                </div>
+
+            </div>
+
+            <aside class="chat-panel" id="chatPanel" aria-label="Meeting chat">
+                <div class="chat-header">
+                    <h2>Chat</h2>
+                    <span id="chatCount">2</span>
+                </div>
+                <div class="chat-log" id="chatLog" aria-live="polite">
+                    <div class="chat-message">
+                        <strong>Professor Parker</strong>
+                        <p>Welcome. I will ask role-specific questions and put detailed practice feedback in the main panel.</p>
+                    </div>
+                    <div class="chat-message you">
+                        <strong>You</strong>
+                        <p>Ready to begin.</p>
+                    </div>
+                </div>
+                <form class="chat-form" id="chatForm">
+                    <label for="chatInput">Your interview answer</label>
+                    <textarea id="chatInput" rows="4" placeholder="Type your answer here..."></textarea>
+                    <p id="micStatus" aria-live="polite"></p>
+                    <button type="submit" id="submitAnswer">Submit Answer</button>
+                </form>
+            </aside>
+        </section>
+
+        <nav class="bottom-toolbar" aria-label="Meeting controls">
+            <button type="button" class="tool-button" id="muteButton">Mute</button>
+            <button type="button" class="tool-button" id="cameraButton">Stop Video</button>
+            <button type="button" class="tool-button" id="participantsButton">Participants</button>
+            <button type="button" class="tool-button is-active" id="chatButton">Chat</button>
+            <button type="button" class="tool-button" id="shareButton">Share Screen</button>
+            <a class="tool-button leave-button" href="interviews.html">Leave</a>
+        </nav>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/interview-data.js"></script>
+    <script src="js/interview-scoring.js"></script>
+    <script src="js/mock-interview.js"></script>
+</body>
+</html>
